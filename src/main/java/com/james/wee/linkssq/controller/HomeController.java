@@ -2,10 +2,10 @@ package com.james.wee.linkssq.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import javax.annotation.Resource;
-import javax.persistence.Query;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,17 +14,20 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.james.wee.linkssq.model.Presentdata;
+import com.james.wee.linkssq.repository.dao.FunnelDao;
 import com.james.wee.linkssq.repository.dao.PresentDataDao;
 
 /**
  * Handles requests for the application home page.
  */
 @Controller
-@RequestMapping(value = "/linkssq")
 public class HomeController {
 
 	@Resource
 	private PresentDataDao presentDataDao;
+	@Resource
+	private FunnelDao funnelDao;
 	private static final Logger logger = LoggerFactory
 			.getLogger(HomeController.class);
 
@@ -36,10 +39,18 @@ public class HomeController {
 		this.presentDataDao = presentDataDao;
 	}
 
+	public FunnelDao getFunnelDao() {
+		return funnelDao;
+	}
+
+	public void setFunnelDao(FunnelDao funnelDao) {
+		this.funnelDao = funnelDao;
+	}
+
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = "/home", method = RequestMethod.GET)
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 
@@ -48,8 +59,15 @@ public class HomeController {
 				DateFormat.LONG, locale);
 
 		String formattedDate = dateFormat.format(date);
-		boolean flag = presentDataDao.updateLastOpenData();
-		model.addAttribute("serverTime", formattedDate+"=="+this.presentDataDao+"===="+flag);
+		model.addAttribute("serverTime", formattedDate);
+		List<Presentdata> presentList = presentDataDao.queryAllPresentData();
+		String value = null;
+		if(null!=presentList){
+			for(Presentdata present : presentList){
+				value = funnelDao.queryFunnelByOpenData(present);
+				logger.info(present.getPresentSeries()+"=>共同值："+value);
+			}
+		}
 		return "home";
 	}
 

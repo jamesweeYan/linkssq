@@ -17,7 +17,7 @@
         <!-- 字符编码 --> 
          <param name="Encoding" value="UTF-8" />   
         <!-- 设置File参数：日志输出文件名 -->    
-        <param name="File" value="log/webapps.dev.log" />    
+        <param name="File" value="log/linkssq.log" />    
         <!-- 设置是否在重新启动服务时，在原有日志的基础添加新日志 -->    
         <param name="Append" value="true" />    
         <!-- 设置文件大小 -->    
@@ -56,7 +56,7 @@
 	<!-- Root Logger -->
 	<root>
 		<priority value="warn" />
-		<appender-ref ref="console" />
+		<appender-ref ref="filelog_appender" />
 	</root>
 	
 </log4j:configuration>

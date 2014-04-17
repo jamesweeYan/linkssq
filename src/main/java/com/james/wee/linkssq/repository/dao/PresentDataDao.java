@@ -3,8 +3,11 @@
  */
 package com.james.wee.linkssq.repository.dao;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,7 +40,6 @@ public class PresentDataDao {
 		boolean flag = true;
 		try {
 			String open = HtmlParse.parseOpenSSQData();
-			System.out.println(open);
 			if (null != open) {
 				Presentdata present = new Presentdata(open);
 				logger.info("present====>"+present);
@@ -46,10 +48,12 @@ public class PresentDataDao {
 		} catch (Exception e) {
 			logger.info("更新最新开奖数据出现异常："+e.getMessage());
 			flag = false;
-		}finally{
-			entityManager.close();
 		}
 		return flag;
 	}
 	
+	public List<Presentdata> queryAllPresentData(){
+		Query query = entityManager.createNamedQuery("Presentdata.findAll");
+		return query.getResultList();
+	}
 }
