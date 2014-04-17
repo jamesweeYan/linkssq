@@ -8,7 +8,7 @@ import javax.persistence.*;
  * 
  */
 @Entity
-@NamedQuery(name = "Presentdata.findAll", query = "SELECT p FROM Presentdata p")
+@NamedQuery(name = "Presentdata.findAll", query = "SELECT p FROM Presentdata p order by p.id desc")
 public class Presentdata implements Serializable {
 	private static final long serialVersionUID = 1L;
 

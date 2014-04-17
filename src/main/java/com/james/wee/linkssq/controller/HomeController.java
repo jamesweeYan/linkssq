@@ -63,10 +63,11 @@ public class HomeController {
 		List<Presentdata> presentList = presentDataDao.queryAllPresentData();
 		String value = null;
 		if(null!=presentList){
-			for(Presentdata present : presentList){
+//			for(Presentdata present : presentList){
+			Presentdata present = presentList.get(0);
 				value = funnelDao.queryFunnelByOpenData(present);
 				logger.info(present.getPresentSeries()+"=>共同值："+value);
-			}
+//			}
 		}
 		return "home";
 	}
