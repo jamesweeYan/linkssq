@@ -3,7 +3,6 @@
  */
 package com.james.wee.linkssq.repository.dao;
 
-import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +16,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
-import com.james.wee.linkssq.model.Funnel;
 import com.james.wee.linkssq.model.Presentdata;
 import com.james.wee.linkssq.util.HtmlParse;
 
@@ -27,6 +25,7 @@ import com.james.wee.linkssq.util.HtmlParse;
  */
 @Repository("presentDataDao")
 public class PresentDataDao {
+	
 	private static final Logger logger = LoggerFactory
 			.getLogger(PresentDataDao.class);
 	private EntityManager entityManager;
@@ -50,7 +49,7 @@ public class PresentDataDao {
 				entityManager.persist(present);
 			}
 		} catch (Exception e) {
-			logger.info("更新最新开奖数据出现异常：" + e.getMessage());
+			logger.info("鏇存柊鏈�鏂板紑濂栨暟鎹嚭鐜板紓甯革細" + e.getMessage());
 			flag = false;
 		}
 		return flag;
@@ -67,7 +66,7 @@ public class PresentDataDao {
 	 * @param pageSize
 	 * @param currageNo
 	 * @param index
-	 *            数据的索引
+	 *            鏁版嵁鐨勭储寮�
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
