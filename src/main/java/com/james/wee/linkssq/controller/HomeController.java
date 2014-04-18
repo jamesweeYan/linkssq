@@ -67,6 +67,8 @@ public class HomeController {
 			Presentdata present = presentList.get(0);
 				value = funnelDao.queryFunnelByOpenData(present);
 				logger.info(present.getPresentSeries()+"=>共同值："+value);
+				logger.info("5组："+presentDataDao.countPresentData(5));
+				logger.info("7组："+presentDataDao.countPresentData(7));
 //			}
 		}
 		return "home";
