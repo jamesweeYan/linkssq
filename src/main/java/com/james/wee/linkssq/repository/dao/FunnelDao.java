@@ -5,7 +5,6 @@ package com.james.wee.linkssq.repository.dao;
 
 import java.beans.PropertyDescriptor;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -83,13 +82,14 @@ public class FunnelDao {
 		}
 		// 读取共同值
 		refList.removeAll(delList);
-		java.util.Collections.sort(refList, new Comparator() {
-			@Override
-			public int compare(Object o1, Object o2) {
-				return o1.toString().compareTo(o2.toString());
-			}
-
-		});
+		java.util.Collections.sort(refList,(a,b)->a.compareTo(b));
+//		java.util.Collections.sort(refList, new Comparator() {
+//			@Override
+//			public int compare(Object o1, Object o2) {
+//				return o1.toString().compareTo(o2.toString());
+//			}
+//
+//		});
 		return idList.toString() + "|" + refList.toString();
 	}
 
