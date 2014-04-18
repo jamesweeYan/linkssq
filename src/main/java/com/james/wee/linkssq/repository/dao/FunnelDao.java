@@ -6,9 +6,7 @@ package com.james.wee.linkssq.repository.dao;
 import java.beans.PropertyDescriptor;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
