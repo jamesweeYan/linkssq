@@ -72,19 +72,22 @@ public class PresentDataDao {
 	@SuppressWarnings("unchecked")
 	public List<Presentdata> queryPresentDataForPage(int pageSize,
 			int currageNo, int index) {
-		return entityManager
+		Query query =  entityManager
 				.createQuery(
-						"SELECT p FROM Presentdata p order by p.id desc limit "
-								+ ((currageNo - 1) * pageSize + index) + ","
-								+ pageSize).getResultList();
+						"SELECT p FROM Presentdata p ORDER BY p.id DESC");
+		query.setFirstResult((currageNo-1)*pageSize+1);
+		query.setMaxResults(pageSize);
+		return query.getResultList();
+		
 	}
 
-	public void countPresentData(int groups) {
+	public Map<String, Integer> countPresentData(int groups) {
 		List<Presentdata> list = queryPresentDataForPage(groups, 1, 1);
 		Map<String, Integer> cntMap = new TreeMap<String, Integer>();
 		PropertyDescriptor pd = null;
 		String value = null;
 		if (null != list) {
+			logger.info("====查询：" + list.size());
 			for (Presentdata present : list) {
 				for (int i = 1; i <= 6; i++) {
 					try {
@@ -101,5 +104,6 @@ public class PresentDataDao {
 				}
 			}
 		}
+		return cntMap;
 	}
 }
