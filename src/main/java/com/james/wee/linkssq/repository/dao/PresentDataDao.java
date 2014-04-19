@@ -41,20 +41,38 @@ public class PresentDataDao {
 
 	public boolean updateLastOpenData() {
 		boolean flag = true;
-		try {
+//		try {
 			String open = HtmlParse.parseOpenSSQData();
 			if (null != open) {
 				Presentdata present = new Presentdata(open);
-				logger.info("present====>" + present);
-				entityManager.persist(present);
+				try{
+					present = queryPresentDataByOpenSeries(present.getPresentSeries());
+				}catch(Exception e){
+					try{
+					  logger.info("present====>" + present);
+						entityManager.persist(present);
+					}catch(Exception es){
+						logger.info("更新最新开奖数据出现异常：" + es.getMessage());
+						flag = false;
+					}
+				}
+				  logger.info(present+" ====>已存在" );
+				
 			}
-		} catch (Exception e) {
-			logger.info("鏇存柊鏈�鏂板紑濂栨暟鎹嚭鐜板紓甯革細" + e.getMessage());
-			flag = false;
-		}
+//		} catch (Exception e) {
+//			logger.info("更新最新开奖数据出现异常：" + e.getMessage());
+//			flag = false;
+//		}
 		return flag;
 	}
 
+	public Presentdata queryPresentDataByOpenSeries(String series){
+		Query query =  entityManager
+				.createQuery(
+						"SELECT p FROM Presentdata p where p.presentSeries=:series");
+		query.setParameter("series", series);
+		return (Presentdata) query.getSingleResult();
+	}
 	@SuppressWarnings("unchecked")
 	public List<Presentdata> queryAllPresentData() {
 		Query query = entityManager.createNamedQuery("Presentdata.findAll");
@@ -75,19 +93,19 @@ public class PresentDataDao {
 		Query query =  entityManager
 				.createQuery(
 						"SELECT p FROM Presentdata p ORDER BY p.id DESC");
-		query.setFirstResult((currageNo-1)*pageSize+1);
+		query.setFirstResult((currageNo-1)*pageSize+index);
 		query.setMaxResults(pageSize);
 		return query.getResultList();
 		
 	}
 
-	public Map<String, Integer> countPresentData(int groups) {
-		List<Presentdata> list = queryPresentDataForPage(groups, 1, 1);
+	public Map<String, Integer> countPresentData(int groups,int index) {
+		List<Presentdata> list = queryPresentDataForPage(groups, 1, index);
 		Map<String, Integer> cntMap = new TreeMap<String, Integer>();
 		PropertyDescriptor pd = null;
 		String value = null;
 		if (null != list) {
-			logger.info("====查询：" + list.size());
+			logger.info("====查询：" + list);
 			for (Presentdata present : list) {
 				for (int i = 1; i <= 6; i++) {
 					try {

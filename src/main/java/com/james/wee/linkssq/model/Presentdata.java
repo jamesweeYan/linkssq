@@ -153,6 +153,16 @@ public class Presentdata implements Serializable {
 		this.r6 = r6;
 	}
 
+	public String getOpenNums() {
+		return this.r1 + " " + this.r2 + " " + this.r3 + " " + this.r4 + " "
+				+ this.r5 + " " + this.r6 + " | " + this.blue;
+	}
+
+	public String getOpenRedNums() {
+		return this.r1 + " " + this.r2 + " " + this.r3 + " " + this.r4 + " "
+				+ this.r5 + " " + this.r6;
+	}
+
 	@Override
 	public String toString() {
 		return "Presentdata [id=" + id + ", blue=" + blue + ", calc=" + calc
@@ -161,5 +171,4 @@ public class Presentdata implements Serializable {
 				+ ", r4=" + r4 + ", r5=" + r5 + ", r6=" + r6 + "]";
 	}
 
-	
 }

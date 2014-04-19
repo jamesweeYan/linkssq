@@ -37,6 +37,7 @@ public class FunnelDao {
 		this.entityManager = entityManager;
 	}
 
+	@SuppressWarnings("unchecked")
 	public String queryFunnelByOpenData(Presentdata openData) {
 		String sql = "SELECT f FROM Funnel f where f.r" + openData.getR1()
 				+ "=:R1 " + " and  f.r" + openData.getR2() + "=:R2 "
@@ -90,7 +91,7 @@ public class FunnelDao {
 //			}
 //
 //		});
-		return idList.toString() + "|" + refList.toString();
+		return ""+idList.toString() + "@" + refList.toString();
 	}
 
 }

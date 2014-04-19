@@ -3,12 +3,16 @@
  */
 package com.james.wee.linkssq.repository.service;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.james.wee.linkssq.model.Presentdata;
 import com.james.wee.linkssq.repository.dao.PresentDataDao;
 
 /**
@@ -27,8 +31,28 @@ public class PresentDataService {
 	public void setPresentDataDao(PresentDataDao presentDataDao) {
 		this.presentDataDao = presentDataDao;
 	}
-	@Transactional(propagation=Propagation.REQUIRED)
+
+	@Transactional(propagation = Propagation.REQUIRED)
 	public boolean updatePresentDataByLast() {
 		return presentDataDao.updateLastOpenData();
+	}
+
+	public Presentdata queryPresentDataByOpenSeries(String series) {
+		return presentDataDao.queryPresentDataByOpenSeries(series);
+	}
+
+	public List<Presentdata> queryPresentDataForPage(int pageSize,
+			int currageNo, int index) {
+		return presentDataDao.queryPresentDataForPage(pageSize, currageNo,
+				index);
+
+	}
+
+	public Map<String, Integer> countPresentData(int groups, int index) {
+		return presentDataDao.countPresentData(groups, index);
+	}
+
+	public List<Presentdata> queryAllPresentData() {
+		return presentDataDao.queryAllPresentData();
 	}
 }
