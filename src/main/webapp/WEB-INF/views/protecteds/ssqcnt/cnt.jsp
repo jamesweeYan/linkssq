@@ -146,7 +146,7 @@
 				<td colspan="11">频率组合：${cm.frequency}  组码：${cm.zuMaIds }</td>
 			</tr>
 			<tr>
-				<td colspan="11">共同吗：${cm.zuMaReds }</td>
+				<td colspan="11">共同码：${cm.zuMaReds }</td>
 			</tr>
 		</tfoot>
 	</table>

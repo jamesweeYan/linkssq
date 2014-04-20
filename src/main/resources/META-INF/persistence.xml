@@ -3,6 +3,7 @@
 	<persistence-unit name="linkssq">
 		<class>com.james.wee.linkssq.model.Funnel</class>
 		<class>com.james.wee.linkssq.model.Presentdata</class>
+		<class>com.james.wee.linkssq.model.Cnt</class>
 <!-- 		<properties> -->
 <!-- 			<property name="eclipselink.jdbc.batch-writing" value="JDBC"/> -->
 <!-- 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/> -->

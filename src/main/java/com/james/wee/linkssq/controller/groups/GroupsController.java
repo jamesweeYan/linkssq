@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.james.wee.linkssq.model.Cnt;
 import com.james.wee.linkssq.model.CntModel;
 import com.james.wee.linkssq.model.Presentdata;
+import com.james.wee.linkssq.repository.service.CntService;
 import com.james.wee.linkssq.repository.service.FunDataService;
 import com.james.wee.linkssq.repository.service.PresentDataService;
 
@@ -25,7 +27,8 @@ public class GroupsController {
 	private PresentDataService presentDataService;
 	@Resource
 	private FunDataService funDataService;
-
+	@Resource
+	private CntService cntService;
 	private static final Logger logger = LoggerFactory
 			.getLogger(GroupsController.class);
 
@@ -39,12 +42,11 @@ public class GroupsController {
 			qt = "0";
 		}
 		int step = Integer.parseInt(qt);
-		for (int j = 0; j < 10; j++) {
+		for (int j = 0; j < 33; j++) {
 			CntModel cm = new CntModel();
-			step += j;
-			if (step > 0) {
+			if ((step + j) > 0) {
 				List<Presentdata> presentList = presentDataService
-						.queryPresentDataForPage(1, 1, step - 1);
+						.queryPresentDataForPage(1, 1, (step + j) - 1);
 				if (null != presentList && !presentList.isEmpty()) {
 					// model.addAttribute("openNumDate", presentList.get(0)
 					// .getPresentDate());
@@ -57,17 +59,39 @@ public class GroupsController {
 					cm.setOpenNum(presentList.get(0).getOpenNums());
 					// model.addAttribute("redNum",presentList.get(0).getOpenRedNums());
 					cm.setRedNum(presentList.get(0).getOpenRedNums());
+					//
+					String ref = funDataService
+							.queryFunnelByOpenData(presentList.get(0));
+					logger.info("+==============" + ref);
+					String[] rs = ref.split("@");
+					cm.setZuMaIds(rs[0]);
+					cm.setZuMaReds(rs[1]);
 				}
 
 			}
 			Map<String, Integer> groups5 = presentDataService.countPresentData(
-					Integer.parseInt(qv), step);
-			String[] reds = cm.getRedNum().split(" ");
-			String frequency = "";
-			for(String r : reds){
-				frequency+=" "+groups5.get(r);
+					Integer.parseInt(qv), (step + j));
+			if (null != cm.getRedNum()) {
+				String[] reds = cm.getRedNum().split(" ");
+				String frequency = "";
+//				Cnt cnt = new Cnt();
+//				cnt.setOpenseries(cm.getOpenNumSeries());
+//				
+				for (String r : reds) {
+					frequency += " "
+							+ (null == groups5.get(r) ? "0" : groups5.get(r));
+				}
+//				String[] fq = frequency.trim().split(" ");
+//				cnt.setP1(Integer.parseInt(fq[0]));
+//				cnt.setP2(Integer.parseInt(fq[1]));
+//				cnt.setP3(Integer.parseInt(fq[2]));
+//				cnt.setP4(Integer.parseInt(fq[3]));
+//				cnt.setP5(Integer.parseInt(fq[4]));
+//				cnt.setP6(Integer.parseInt(fq[5]));
+//				this.cntService.addCnt(cnt);
+				cm.setFrequency(frequency);
+			
 			}
-			cm.setFrequency(frequency);
 			List<Integer> one = new ArrayList<Integer>();
 			for (int i = 1; i <= 11; i++) {
 				if (i < 10)
@@ -89,19 +113,6 @@ public class GroupsController {
 			}
 			// model.addAttribute("groups_thr", thr);
 			cm.setGroups_thr(thr);
-			List<Presentdata> list = presentDataService
-					.queryPresentDataForPage(Integer.parseInt(qv), 1, step);
-			if (null != list) {
-				for (Presentdata prest : list) {
-					String ref = funDataService.queryFunnelByOpenData(prest);
-					logger.info("+==============" + ref);
-					String[] rs = ref.split("@");
-					// model.addAttribute("zuMaIds", rs[0]);
-					// model.addAttribute("zuMaReds", rs[1]);
-					cm.setZuMaIds(rs[0]);
-					cm.setZuMaReds(rs[1]);
-				}
-			}
 			cmList.add(cm);
 		}
 		model.addAttribute("cmList", cmList);
@@ -122,6 +133,14 @@ public class GroupsController {
 
 	public void setFunDataService(FunDataService funDataService) {
 		this.funDataService = funDataService;
+	}
+
+	public CntService getCntService() {
+		return cntService;
+	}
+
+	public void setCntService(CntService cntService) {
+		this.cntService = cntService;
 	}
 
 	private int isNull(Integer i) {
