@@ -165,6 +165,14 @@
 				}
 			
 			});
+			
+			var selector = $("#table_${st.index} span");
+			selector.on("click",function(){
+				if($(this).css("color")=='rgb(255, 0, 0)')
+					$(this).removeAttr("style");
+				else
+					$(this).css("color","red");
+			});
 
 	});
 </script>

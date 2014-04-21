@@ -6,6 +6,7 @@
 <html>
 <head>
 <title>双色球统计!</title>
+<link type="">
 <script type="text/javascript" src="<%=request.getContextPath()%>/statics/js/jquery-2.1.0.min.js"></script>
 <script type="text/javascript">
 	function query() {
@@ -24,7 +25,7 @@
 	<form action="" method="post">
 		<div id="groupsDIV">
 			样本数：<input id="qroupsText" value="29">样本步长：<input id="qroupsStep" value="0">&nbsp;<input type="button" onclick="query()" value="查询">
-			<div id="groupsContentDIV"></div>
+			<div id="groupsContentDIV" class="redBallBox"></div>
 		</div>
 
 	</form>

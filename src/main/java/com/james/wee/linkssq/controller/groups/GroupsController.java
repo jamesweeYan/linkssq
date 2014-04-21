@@ -116,7 +116,7 @@ public class GroupsController {
 			cmList.add(cm);
 		}
 		model.addAttribute("cmList", cmList);
-		return "protecteds/ssqcnt/cnt";
+		return "protecteds/ssqcnt/cnt2";
 	}
 
 	public PresentDataService getPresentDataService() {
