@@ -14,8 +14,8 @@ import javax.persistence.Query;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Repository;
 
+import com.james.wee.linkssq.model.Cnt;
 import com.james.wee.linkssq.model.Presentdata;
 import com.james.wee.linkssq.util.HtmlParse;
 
@@ -25,7 +25,7 @@ import com.james.wee.linkssq.util.HtmlParse;
  */
 @Repository("presentDataDao")
 public class PresentDataDao {
-	
+
 	private static final Logger logger = LoggerFactory
 			.getLogger(PresentDataDao.class);
 	private EntityManager entityManager;
@@ -41,38 +41,62 @@ public class PresentDataDao {
 
 	public boolean updateLastOpenData() {
 		boolean flag = true;
-//		try {
-			String open = HtmlParse.parseOpenSSQData();
-			if (null != open) {
-				Presentdata present = new Presentdata(open);
-				try{
-					present = queryPresentDataByOpenSeries(present.getPresentSeries());
-				}catch(Exception e){
-					try{
-					  logger.info("present====>" + present);
-						entityManager.persist(present);
-					}catch(Exception es){
-						logger.info("更新最新开奖数据出现异常：" + es.getMessage());
-						flag = false;
+		// try {
+		String open = HtmlParse.parseOpenSSQData();
+		if (null != open) {
+			Presentdata present = new Presentdata(open);
+			try {
+				present = queryPresentDataByOpenSeries(present
+						.getPresentSeries());
+			} catch (Exception e) {
+				try {
+					logger.info("present====>" + present);
+					entityManager.persist(present);
+
+					if (null != present.getOpenRedNums()) {
+						String[] reds = present.getOpenRedNums().split(" ");
+						String frequency = "";
+						Cnt cnt = new Cnt();
+						cnt.setOpenseries(present.getPresentSeries());
+						Map<String, Integer> groups5 = this.countPresentData(1,
+								0);
+						for (String r : reds) {
+							frequency += " "
+									+ (null == groups5.get(r) ? "0" : groups5
+											.get(r));
+						}
+						String[] fq = frequency.trim().split(" ");
+						cnt.setP1(Integer.parseInt(fq[0]));
+						cnt.setP2(Integer.parseInt(fq[1]));
+						cnt.setP3(Integer.parseInt(fq[2]));
+						cnt.setP4(Integer.parseInt(fq[3]));
+						cnt.setP5(Integer.parseInt(fq[4]));
+						cnt.setP6(Integer.parseInt(fq[5]));
+						entityManager.persist(cnt);
+
 					}
+				} catch (Exception es) {
+					logger.info("更新最新开奖数据出现异常：" + es.getMessage());
+					flag = false;
 				}
-				  logger.info(present+" ====>已存在" );
-				
 			}
-//		} catch (Exception e) {
-//			logger.info("更新最新开奖数据出现异常：" + e.getMessage());
-//			flag = false;
-//		}
+			logger.info(present + " ====>已存在");
+
+		}
+		// } catch (Exception e) {
+		// logger.info("更新最新开奖数据出现异常：" + e.getMessage());
+		// flag = false;
+		// }
 		return flag;
 	}
 
-	public Presentdata queryPresentDataByOpenSeries(String series){
-		Query query =  entityManager
-				.createQuery(
-						"SELECT p FROM Presentdata p where p.presentSeries=:series");
+	public Presentdata queryPresentDataByOpenSeries(String series) {
+		Query query = entityManager
+				.createQuery("SELECT p FROM Presentdata p where p.presentSeries=:series");
 		query.setParameter("series", series);
 		return (Presentdata) query.getSingleResult();
 	}
+
 	@SuppressWarnings("unchecked")
 	public List<Presentdata> queryAllPresentData() {
 		Query query = entityManager.createNamedQuery("Presentdata.findAll");
@@ -90,16 +114,15 @@ public class PresentDataDao {
 	@SuppressWarnings("unchecked")
 	public List<Presentdata> queryPresentDataForPage(int pageSize,
 			int currageNo, int index) {
-		Query query =  entityManager
-				.createQuery(
-						"SELECT p FROM Presentdata p ORDER BY p.id DESC");
-		query.setFirstResult((currageNo-1)*pageSize+index);
+		Query query = entityManager
+				.createQuery("SELECT p FROM Presentdata p ORDER BY p.id DESC");
+		query.setFirstResult((currageNo - 1) * pageSize + index);
 		query.setMaxResults(pageSize);
 		return query.getResultList();
-		
+
 	}
 
-	public Map<String, Integer> countPresentData(int groups,int index) {
+	public Map<String, Integer> countPresentData(int groups, int index) {
 		List<Presentdata> list = queryPresentDataForPage(groups, 1, index);
 		Map<String, Integer> cntMap = new TreeMap<String, Integer>();
 		PropertyDescriptor pd = null;
