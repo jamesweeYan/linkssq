@@ -14,8 +14,8 @@ import javax.persistence.Query;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 
-import com.james.wee.linkssq.model.Cnt;
 import com.james.wee.linkssq.model.Presentdata;
 import com.james.wee.linkssq.util.HtmlParse;
 
@@ -38,7 +38,6 @@ public class PresentDataDao {
 	public void setEntityManager(EntityManager entityManager) {
 		this.entityManager = entityManager;
 	}
-
 	public boolean updateLastOpenData() {
 		boolean flag = true;
 		// try {
@@ -52,29 +51,6 @@ public class PresentDataDao {
 				try {
 					logger.info("present====>" + present);
 					entityManager.persist(present);
-
-					if (null != present.getOpenRedNums()) {
-						String[] reds = present.getOpenRedNums().split(" ");
-						String frequency = "";
-						Cnt cnt = new Cnt();
-						cnt.setOpenseries(present.getPresentSeries());
-						Map<String, Integer> groups5 = this.countPresentData(1,
-								0);
-						for (String r : reds) {
-							frequency += " "
-									+ (null == groups5.get(r) ? "0" : groups5
-											.get(r));
-						}
-						String[] fq = frequency.trim().split(" ");
-						cnt.setP1(Integer.parseInt(fq[0]));
-						cnt.setP2(Integer.parseInt(fq[1]));
-						cnt.setP3(Integer.parseInt(fq[2]));
-						cnt.setP4(Integer.parseInt(fq[3]));
-						cnt.setP5(Integer.parseInt(fq[4]));
-						cnt.setP6(Integer.parseInt(fq[5]));
-						entityManager.persist(cnt);
-
-					}
 				} catch (Exception es) {
 					logger.info("更新最新开奖数据出现异常：" + es.getMessage());
 					flag = false;

@@ -7,7 +7,7 @@
 		<c:if test="${cm.openNum!=null }">
 			<tr>
 				<th
-					style="width: 40px; border-right-style: solid; border-bottom-color: AntiqueWhite; border-left-style: solid; border-left-color: AntiqueWhite; border-top-color: AntiqueWhite; border-bottom-style: solid; border-right-color: AntiqueWhite; border-top-style: solid;"
+					style="width: 40px; border-right-style: solid; border-bottom-color: AntiqueWhite; border-left-style: solid; border-left-color: AntiqueWhite; border-top-color: AntiqueWhite; border-bottom-style: solid; border-right-color: AntiqueWhite; border-top-style: solid;background-color: AntiqueWhite;"
 					align="left" colspan="11">日期：${cm.openNumDate }
 					期号：${cm.openNumSeries } 号码：${cm.openNum }</th>
 			</tr>
@@ -16,7 +16,7 @@
 		<tr>
 			<c:forEach items="${cm.groups_one }" var="entity">
 				<td
-					style="width: 40px; border-right-style: solid; border-bottom-color: SlateGray; border-left-style: solid; border-left-color: SlateGray; border-top-color: SlateGray; border-bottom-style: solid; border-right-color: SlateGray; border-top-style: solid;"
+					style="width: 40px; border-right-style: solid; border-bottom-color: SlateGray; border-left-style: solid; border-left-color: SlateGray; border-top-color: SlateGray; border-bottom-style: solid; border-right-color: SlateGray; border-top-style: solid;background-color: SlateGray;"
 					align="center">${entity}</td>
 			</c:forEach>
 		</tr>
@@ -59,7 +59,7 @@
 		<tr>
 			<c:forEach items="${ cm.groups_two }" var="entity">
 				<td
-					style="width: 40px; border-right-style: solid; border-bottom-color: SlateGray; border-left-style: solid; border-left-color: SlateGray; border-top-color: SlateGray; border-bottom-style: solid; border-right-color: SlateGray; border-top-style: solid;"
+					style="width: 40px; border-right-style: solid; border-bottom-color: SlateGray; border-left-style: solid; border-left-color: SlateGray; border-top-color: SlateGray; border-bottom-style: solid; border-right-color: SlateGray; border-top-style: solid;background-color: SlateGray;"
 					align="center">${entity}</td>
 			</c:forEach>
 		</tr>
@@ -102,7 +102,7 @@
 		<tr>
 			<c:forEach items="${cm.groups_thr}" var="entity">
 				<td
-					style="width: 40px; border-right-style: solid; border-bottom-color: SlateGray; border-left-style: solid; border-left-color: SlateGray; border-top-color: SlateGray; border-bottom-style: solid; border-right-color: SlateGray; border-top-style: solid;"
+					style="width: 40px; border-right-style: solid; border-bottom-color: SlateGray; border-left-style: solid; border-left-color: SlateGray; border-top-color: SlateGray; border-bottom-style: solid; border-right-color: SlateGray; border-top-style: solid;background-color: SlateGray;"
 					align="center">${entity}</td>
 			</c:forEach>
 		</tr>
