@@ -50,14 +50,14 @@ public class PresentDataDao {
 						.getPresentSeries());
 			} catch (Exception e) {
 				try {
-					logger.info("present====>" + present);
+//					logger.info("present====>" + present);
 					entityManager.persist(present);
 				} catch (Exception es) {
 					logger.info("更新最新开奖数据出现异常：" + es.getMessage());
 					flag = false;
 				}
 			}
-			logger.info(present + " ====>已存在");
+//			logger.info(present + " ====>已存在");
 
 		}
 		// } catch (Exception e) {
@@ -112,7 +112,7 @@ public class PresentDataDao {
 		PropertyDescriptor pd = null;
 		String value = null;
 		if (null != list) {
-			logger.info("====查询：" + list);
+//			logger.info("====查询：" + list);
 			for (Presentdata present : list) {
 				for (int i = 1; i <= 6; i++) {
 					try {
@@ -128,7 +128,7 @@ public class PresentDataDao {
 		}
 		List<Map.Entry<String, Integer>> listMap = new ArrayList<Map.Entry<String, Integer>>(cntMap.entrySet());
 		java.util.Collections.sort(listMap,(a,b)-> b.getValue()-a.getValue());
-		logger.info("====查询统计：" + listMap);
+//		logger.info("====查询统计：" + listMap);
 		return listMap;
 	}
 }
