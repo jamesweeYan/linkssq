@@ -48,7 +48,7 @@ public class PresentDataService {
 
 	}
 
-	public Map<String, Integer> countPresentData(int groups, int index) {
+	public List<Map.Entry<String, Integer>> countPresentData(int groups, int index) {
 		return presentDataDao.countPresentData(groups, index);
 	}
 

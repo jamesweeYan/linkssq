@@ -14,9 +14,9 @@ public class CntModel implements java.io.Serializable {
 	private String openNumDate;
 	private String openNumSeries;
 	private String openNum;
-	private List<Integer> groups_one;
-	private List<Integer> groups_two;
-	private List<Integer> groups_thr;
+	private List<String> groups_one;
+	private List<String> groups_two;
+	private List<String> groups_thr;
 	private String frequency;
 	private String zuMaIds;
 
@@ -47,27 +47,27 @@ public class CntModel implements java.io.Serializable {
 		this.openNum = openNum;
 	}
 
-	public List<Integer> getGroups_one() {
+	public List<String> getGroups_one() {
 		return groups_one;
 	}
 
-	public void setGroups_one(List<Integer> groups_one) {
+	public void setGroups_one(List<String> groups_one) {
 		this.groups_one = groups_one;
 	}
 
-	public List<Integer> getGroups_two() {
+	public List<String> getGroups_two() {
 		return groups_two;
 	}
 
-	public void setGroups_two(List<Integer> groups_two) {
+	public void setGroups_two(List<String> groups_two) {
 		this.groups_two = groups_two;
 	}
 
-	public List<Integer> getGroups_thr() {
+	public List<String> getGroups_thr() {
 		return groups_thr;
 	}
 
-	public void setGroups_thr(List<Integer> groups_thr) {
+	public void setGroups_thr(List<String> groups_thr) {
 		this.groups_thr = groups_thr;
 	}
 
@@ -104,8 +104,8 @@ public class CntModel implements java.io.Serializable {
 	}
 
 	public CntModel(String openNumDate, String openNumSeries, String openNum,
-			List<Integer> groups_one, List<Integer> groups_two,
-			List<Integer> groups_thr, String zuMaIds, String zuMaReds) {
+			List<String> groups_one, List<String> groups_two,
+			List<String> groups_thr, String zuMaIds, String zuMaReds) {
 		super();
 		this.openNumDate = openNumDate;
 		this.openNumSeries = openNumSeries;

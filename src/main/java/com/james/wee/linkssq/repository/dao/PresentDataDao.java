@@ -4,6 +4,7 @@
 package com.james.wee.linkssq.repository.dao;
 
 import java.beans.PropertyDescriptor;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -98,9 +99,16 @@ public class PresentDataDao {
 
 	}
 
-	public Map<String, Integer> countPresentData(int groups, int index) {
+	public List<Map.Entry<String, Integer>> countPresentData(int groups, int index) {
 		List<Presentdata> list = queryPresentDataForPage(groups, 1, index);
 		Map<String, Integer> cntMap = new TreeMap<String, Integer>();
+		for(int i=1;i<=33;i++){
+			if(i<10)
+				cntMap.put("0"+i, 0);
+			else
+				cntMap.put(""+i, 0);
+		}
+			
 		PropertyDescriptor pd = null;
 		String value = null;
 		if (null != list) {
@@ -110,10 +118,7 @@ public class PresentDataDao {
 					try {
 						pd = new PropertyDescriptor("r" + i, Presentdata.class);
 						value = (String) pd.getReadMethod().invoke(present);
-						if (cntMap.get(value) != null)
-							cntMap.put(value, cntMap.get(value).intValue() + 1);
-						else
-							cntMap.put(value, 1);
+						cntMap.put(value, cntMap.get(value).intValue() + 1);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -121,6 +126,9 @@ public class PresentDataDao {
 				}
 			}
 		}
-		return cntMap;
+		List<Map.Entry<String, Integer>> listMap = new ArrayList<Map.Entry<String, Integer>>(cntMap.entrySet());
+		java.util.Collections.sort(listMap,(a,b)-> b.getValue()-a.getValue());
+		logger.info("====查询统计：" + listMap);
+		return listMap;
 	}
 }

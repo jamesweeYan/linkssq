@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.james.wee.linkssq.model.Cnt;
 import com.james.wee.linkssq.model.CntModel;
 import com.james.wee.linkssq.model.Presentdata;
 import com.james.wee.linkssq.repository.service.CntService;
@@ -34,15 +33,18 @@ public class GroupsController {
 
 	@RequestMapping(value = "/groupsCnt", method = RequestMethod.POST)
 	public String groupsCnt(@RequestParam("qv") String qv,
-			@RequestParam("qt") String qt, Model model) {
+			@RequestParam("qt") String qt,@RequestParam("depth") String depth, Model model) {
 		List<CntModel> cmList = new ArrayList<CntModel>();
 		if (null == qv || "".equals(qv))
 			qv = "29";
 		if (null == qt || "".equals(qt)) {
 			qt = "0";
 		}
+		if (null == depth || "".equals(depth)) {
+			depth = "33";
+		}
 		int step = Integer.parseInt(qt);
-		for (int j = 0; j < 33; j++) {
+		for (int j = 0; j < Integer.parseInt(depth); j++) {
 			CntModel cm = new CntModel();
 			if ((step + j) > 0) {
 				List<Presentdata> presentList = presentDataService
@@ -69,54 +71,50 @@ public class GroupsController {
 				}
 
 			}
-			Map<String, Integer> groups5 = presentDataService.countPresentData(
+			List<Map.Entry<String, Integer>> groups5 = presentDataService.countPresentData(
 					Integer.parseInt(qv), (step + j));
-			if (null != cm.getRedNum()) {
-				String[] reds = cm.getRedNum().split(" ");
-				String frequency = "";
-//				Cnt cnt = new Cnt();
-//				cnt.setOpenseries(cm.getOpenNumSeries());
-//				
-				for (String r : reds) {
-					frequency += " "
-							+ (null == groups5.get(r) ? "0" : groups5.get(r));
+//			if (null != cm.getRedNum()) {
+//				String[] reds = cm.getRedNum().split(" ");
+//				String frequency = "";
+//				for (String r : reds) {
+//					frequency += " "
+//							+ (null == groups5.get(r) ? "0" : groups5.get(r));
+//				}
+//				cm.setFrequency(frequency);
+//			
+//			}
+//			Set<String> keys = groups5.keySet();
+			List<String> one = new ArrayList<String>();
+			List<String> two = new ArrayList<String>();
+			List<String> thr = new ArrayList<String>();
+//			for (java.util.Iterator<String> it = keys.iterator(); it.hasNext();) {
+//				if(one.size()!=11){
+//					one.add(it.next());
+//				}else if(two.size()!=11){
+//					two.add(it.next());
+//				}else{
+//					thr.add(it.next());
+//				}
+//			}
+			for(Map.Entry<String, Integer> me : groups5){
+				if(one.size()!=11){
+					one.add(me.getKey());
+				}else if(two.size()!=11){
+					two.add(me.getKey());
+				}else{
+					thr.add(me.getKey());
 				}
-//				String[] fq = frequency.trim().split(" ");
-//				cnt.setP1(Integer.parseInt(fq[0]));
-//				cnt.setP2(Integer.parseInt(fq[1]));
-//				cnt.setP3(Integer.parseInt(fq[2]));
-//				cnt.setP4(Integer.parseInt(fq[3]));
-//				cnt.setP5(Integer.parseInt(fq[4]));
-//				cnt.setP6(Integer.parseInt(fq[5]));
-//				this.cntService.addCnt(cnt);
-				cm.setFrequency(frequency);
-			
 			}
-			List<Integer> one = new ArrayList<Integer>();
-			for (int i = 1; i <= 11; i++) {
-				if (i < 10)
-					one.add(isNull(groups5.get("0" + i)));
-				else
-					one.add(isNull(groups5.get("" + i)));
-			}
-			// model.addAttribute("groups_one", one);
+			java.util.Collections.sort(one, (a,b)->a.compareTo(b));
+			java.util.Collections.sort(two, (a,b)->a.compareTo(b));
+			java.util.Collections.sort(thr, (a,b)->a.compareTo(b));
 			cm.setGroups_one(one);
-			List<Integer> two = new ArrayList<Integer>();
-			for (int i = 12; i <= 22; i++) {
-				two.add(isNull(groups5.get("" + i)));
-			}
-			// model.addAttribute("groups_two", two);
 			cm.setGroups_two(two);
-			List<Integer> thr = new ArrayList<Integer>();
-			for (int i = 23; i <= 33; i++) {
-				thr.add(isNull(groups5.get("" + i)));
-			}
-			// model.addAttribute("groups_thr", thr);
 			cm.setGroups_thr(thr);
 			cmList.add(cm);
 		}
 		model.addAttribute("cmList", cmList);
-		return "protecteds/ssqcnt/cnt2";
+		return "protecteds/ssqcnt/cnt";
 	}
 
 	public PresentDataService getPresentDataService() {

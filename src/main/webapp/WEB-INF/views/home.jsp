@@ -11,7 +11,7 @@
 <script type="text/javascript">
 	function query() {
 		$.ajax({
-			url : "<%=request.getContextPath()%>/groupsCnt?qv="+$("#qroupsText").val()+"&qt="+$("#qroupsStep").val()+"&dt="+new Date().getTime(),
+			url : "<%=request.getContextPath()%>/groupsCnt?qv="+$("#qroupsText").val()+"&qt="+$("#qroupsStep").val()+"&depth="+$("#depth").val()+"&dt="+new Date().getTime(),
 			type:"POST",
 			dataType : "html",
 			success : function(done) {
@@ -24,7 +24,7 @@
 <body>
 	<form action="" method="post">
 		<div id="groupsDIV">
-			样本数：<input id="qroupsText" value="29">样本步长：<input id="qroupsStep" value="0">&nbsp;<input type="button" onclick="query()" value="查询">
+			样本数：<input id="qroupsText" value="29">样本步长：<input id="qroupsStep" value="0">&nbsp;样本步长：<input id="depth" value="33"><input type="button" onclick="query()" value="查询">
 			<div id="groupsContentDIV" class="redBallBox"></div>
 		</div>
 
