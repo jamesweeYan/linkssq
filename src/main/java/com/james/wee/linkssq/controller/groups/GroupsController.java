@@ -141,7 +141,7 @@ public class GroupsController {
 		this.cntService = cntService;
 	}
 
-	private int isNull(Integer i) {
-		return null == i ? 0 : i;
-	}
+//	private int isNull(Integer i) {
+//		return null == i ? 0 : i;
+//	}
 }

@@ -87,12 +87,12 @@ public class HtmlParse {
 
 	}
 
-	public static void main(String[] args) {
-		try {
-			new HtmlParse().parseOpenSSQData();
-		} catch (Exception e) {
-			// TODO 自动生成的 catch 块
-			e.printStackTrace();
-		}
-	}
+//	public static void main(String[] args) {
+//		try {
+//			new HtmlParse().parseOpenSSQData();
+//		} catch (Exception e) {
+//			// TODO 自动生成的 catch 块
+//			e.printStackTrace();
+//		}
+//	}
 }

@@ -1,15 +1,10 @@
 package com.james.wee.linkssq.repository.task;
 
-import java.util.List;
-import java.util.Map;
-
 import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.james.wee.linkssq.model.Cnt;
-import com.james.wee.linkssq.model.Presentdata;
 import com.james.wee.linkssq.repository.service.CntService;
 import com.james.wee.linkssq.repository.service.PresentDataService;
 
