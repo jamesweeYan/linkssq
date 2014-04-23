@@ -7,7 +7,7 @@
 <%
 for(int i=1;i<=33;i++){
 %>
-  <div id="main_<%=i %>" style="height:400px;width: 33.3%;float: left;"></div>
+  <div id="main_<%=i %>" style="height:480px;width: 33.3%;float: left;"></div>
 <%} %>
 <script>
 var option =null;
@@ -56,9 +56,9 @@ for(int j=1;j<=33;j++){
 		        {
 		            type : 'value',
 		            min:0.01,
-		            max:1.00,
+		            max:0.66,
 		            scale:true,
-		            splitNumber:20,
+		            splitNumber:24,
 		            splitArea:{show:true},
 		            precision:2
 		        }
