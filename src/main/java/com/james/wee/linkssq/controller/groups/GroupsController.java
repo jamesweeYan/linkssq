@@ -30,13 +30,24 @@ public class GroupsController {
 	@Resource
 	private CntService cntService;
 
+	private Map<Integer, Integer> countInterval(List<Presentdata> presentList) {
+		Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+		Presentdata first = null;//presentList.get(0);
+		for (int i = 0; i < 6; i++) {
+			first = presentList.get(i);
+			for (int j = 1, len = presentList.size(); j < len; j++) {
+				
+			}
+		}
+		return map;
+	}
 
 	@RequestMapping(value = "/groupsCnt", method = RequestMethod.POST)
 	public String cntInterval(@RequestParam("qv") String qv,
 			@RequestParam("qt") String qt, @RequestParam("depth") String depth,
-			@RequestParam("isasc") String isasc, Model model) { 
+			@RequestParam("isasc") String isasc, Model model) {
 		if (null == qv || "".equals(qv))
-			qv = "29";
+			qv = "6";
 		if (null == qt || "".equals(qt)) {
 			qt = "0";
 		}
@@ -50,32 +61,21 @@ public class GroupsController {
 				List<Presentdata> presentList = presentDataService
 						.queryPresentDataForPage(1, 1, (step + j) - 1);
 				if (null != presentList && !presentList.isEmpty()) {
-					// model.addAttribute("openNumDate", presentList.get(0)
-					// .getPresentDate());
 					cm.setOpenNumDate(presentList.get(0).getPresentDate());
-					// model.addAttribute("openNumSeries", presentList.get(0)
-					// .getPresentSeries());
 					cm.setOpenNumSeries(presentList.get(0).getPresentSeries());
-					// model.addAttribute("openNum",
-					// presentList.get(0).getOpenNums());
 					cm.setOpenNum(presentList.get(0).getOpenNums());
-					// model.addAttribute("redNum",presentList.get(0).getOpenRedNums());
 					cm.setRedNum(presentList.get(0).getOpenRedNums());
-					//
-					String ref = funDataService
-							.queryFunnelByOpenData(presentList.get(0));
-					// logger.info("+==============" + ref);
-					String[] rs = ref.split("@");
-					cm.setZuMaIds(rs[0]);
-					cm.setZuMaReds(rs[1]);
 				}
 
 			}
-			List<Map.Entry<String, Integer>> groups5 = presentDataService
-					.countPresentData(Integer.parseInt(qv), (step + j));
+
+			List<Presentdata> presentList = presentDataService
+					.queryPresentDataForPage(9, 1, (step + j));
+
 		}
 		return "protecteds/ssqcnt/interval";
 	}
+
 	@RequestMapping(value = "/groupsCnt", method = RequestMethod.POST)
 	public String groupsCnt(@RequestParam("qv") String qv,
 			@RequestParam("qt") String qt, @RequestParam("depth") String depth,
@@ -163,7 +163,7 @@ public class GroupsController {
 				key = "0" + j;
 			else
 				key = "" + j;
-			for (int i = 9; i>= 0; i--) {
+			for (int i = 9; i >= 0; i--) {
 				List<Map.Entry<String, Integer>> groups5 = presentDataService
 						.countPresentData(5, i);
 				for (Map.Entry<String, Integer> m : groups5) {
@@ -203,7 +203,7 @@ public class GroupsController {
 			mapList.put(key + "_50", tmp50);
 		}
 
-		 model.addAttribute("redMapList", mapList);
+		model.addAttribute("redMapList", mapList);
 		return "protecteds/ssqcnt/line";
 	}
 
