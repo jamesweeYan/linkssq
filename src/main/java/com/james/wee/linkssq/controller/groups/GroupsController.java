@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.annotation.Resource;
 
@@ -31,9 +30,52 @@ public class GroupsController {
 	@Resource
 	private CntService cntService;
 
-	// private static final Logger logger = LoggerFactory
-	// .getLogger(GroupsController.class);
 
+	@RequestMapping(value = "/groupsCnt", method = RequestMethod.POST)
+	public String cntInterval(@RequestParam("qv") String qv,
+			@RequestParam("qt") String qt, @RequestParam("depth") String depth,
+			@RequestParam("isasc") String isasc, Model model) { 
+		if (null == qv || "".equals(qv))
+			qv = "29";
+		if (null == qt || "".equals(qt)) {
+			qt = "0";
+		}
+		if (null == depth || "".equals(depth)) {
+			depth = "33";
+		}
+		int step = Integer.parseInt(qt);
+		for (int j = Integer.parseInt(depth) - 1; j >= 0; j--) {
+			CntModel cm = new CntModel();
+			if ((step + j) > 0) {
+				List<Presentdata> presentList = presentDataService
+						.queryPresentDataForPage(1, 1, (step + j) - 1);
+				if (null != presentList && !presentList.isEmpty()) {
+					// model.addAttribute("openNumDate", presentList.get(0)
+					// .getPresentDate());
+					cm.setOpenNumDate(presentList.get(0).getPresentDate());
+					// model.addAttribute("openNumSeries", presentList.get(0)
+					// .getPresentSeries());
+					cm.setOpenNumSeries(presentList.get(0).getPresentSeries());
+					// model.addAttribute("openNum",
+					// presentList.get(0).getOpenNums());
+					cm.setOpenNum(presentList.get(0).getOpenNums());
+					// model.addAttribute("redNum",presentList.get(0).getOpenRedNums());
+					cm.setRedNum(presentList.get(0).getOpenRedNums());
+					//
+					String ref = funDataService
+							.queryFunnelByOpenData(presentList.get(0));
+					// logger.info("+==============" + ref);
+					String[] rs = ref.split("@");
+					cm.setZuMaIds(rs[0]);
+					cm.setZuMaReds(rs[1]);
+				}
+
+			}
+			List<Map.Entry<String, Integer>> groups5 = presentDataService
+					.countPresentData(Integer.parseInt(qv), (step + j));
+		}
+		return "protecteds/ssqcnt/interval";
+	}
 	@RequestMapping(value = "/groupsCnt", method = RequestMethod.POST)
 	public String groupsCnt(@RequestParam("qv") String qv,
 			@RequestParam("qt") String qt, @RequestParam("depth") String depth,
@@ -161,9 +203,6 @@ public class GroupsController {
 			mapList.put(key + "_50", tmp50);
 		}
 
-		// model.addAttribute("line25", d25);
-		// model.addAttribute("line10", d10);
-		// model.addAttribute("line5", d5);
 		 model.addAttribute("redMapList", mapList);
 		return "protecteds/ssqcnt/line";
 	}
@@ -197,7 +236,4 @@ public class GroupsController {
 		this.cntService = cntService;
 	}
 
-	// private int isNull(Integer i) {
-	// return null == i ? 0 : i;
-	// }
 }
