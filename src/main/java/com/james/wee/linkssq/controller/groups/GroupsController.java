@@ -30,31 +30,45 @@ public class GroupsController {
 	@Resource
 	private CntService cntService;
 
-	private Map<Integer, Integer> countInterval(List<Presentdata> presentList) {
-		Map<Integer, Integer> map = new HashMap<Integer, Integer>();
-		Presentdata first = null;//presentList.get(0);
-		for (int i = 0; i < 6; i++) {
+	private Map<String, Integer> countInterval(List<Presentdata> presentList) {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		for (int i = 0; i < 6; i++)
+			map.put("0" + i, 0);
+		Presentdata first = null;// presentList.get(0);
+		String reds = "";
+
+		for (int i = 0; i < 5; i++) {
 			first = presentList.get(i);
-			for (int j = 1, len = presentList.size(); j < len; j++) {
-				
+			String firstreds[] = first.getOpenRedNums().split(" ");
+			for (String red : firstreds) {
+				int index = 0;
+				for (int j = 1 + i, len = presentList.size(); j < (len + i - 4); j++) {
+					index = j;
+					reds = presentList.get(j).getOpenRedNums();
+					if (reds.indexOf(red) != -1) {
+						map.put("0" + (j - i - 1),
+								map.get("0" + (j - i - 1)) + 1);
+						break;
+					}
+				}
+				if (index == (presentList.size() + i - 6)) {
+					map.put("05", map.get("05") + 1);
+				}
 			}
 		}
 		return map;
 	}
 
-	@RequestMapping(value = "/groupsCnt", method = RequestMethod.POST)
+	@RequestMapping(value = "/cntInterval", method = RequestMethod.POST)
 	public String cntInterval(@RequestParam("qv") String qv,
 			@RequestParam("qt") String qt, @RequestParam("depth") String depth,
 			@RequestParam("isasc") String isasc, Model model) {
-		if (null == qv || "".equals(qv))
-			qv = "6";
-		if (null == qt || "".equals(qt)) {
-			qt = "0";
-		}
+
 		if (null == depth || "".equals(depth)) {
 			depth = "33";
 		}
 		int step = Integer.parseInt(qt);
+		List<Map<String, Integer>> list = new ArrayList<Map<String, Integer>>();
 		for (int j = Integer.parseInt(depth) - 1; j >= 0; j--) {
 			CntModel cm = new CntModel();
 			if ((step + j) > 0) {
@@ -70,9 +84,11 @@ public class GroupsController {
 			}
 
 			List<Presentdata> presentList = presentDataService
-					.queryPresentDataForPage(9, 1, (step + j));
-
+					.queryPresentDataForPage(10, 1, (step + j));
+			Map<String, Integer> map = countInterval(presentList);
+			list.add(map);
 		}
+		model.addAttribute("intervalList", list);
 		return "protecteds/ssqcnt/interval";
 	}
 

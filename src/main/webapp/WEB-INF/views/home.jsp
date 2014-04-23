@@ -31,6 +31,17 @@
 			}
 		});
 	}
+	
+	function queryInterval() {
+		$.ajax({
+			url : "<%=request.getContextPath()%>/cntInterval?qv="+$("#qroupsText").val()+"&qt="+$("#qroupsStep").val()+"&depth="+$("#depth").val()+"&isasc="+$("#isasc").val()+"&dt="+new Date().getTime(),
+			type:"POST",
+			dataType : "html",
+			success : function(done) {
+				$("#groupsContentDIV").html(done);
+			}
+		});
+	}
 </script>
 </head>
 <body>
@@ -43,6 +54,8 @@
 			</select><input type="button" onclick="query()" value="查询">
 			<br/>
 			<input type="button" onclick="queryLine()" value="line">
+			&nbsp;&nbsp;
+			<input type="button" onclick="queryInterval()" value="interval">
 			<div id="groupsContentDIV" class="redBallBox"></div>
 		</div>
 
