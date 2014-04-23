@@ -3,20 +3,28 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page session="false"%>
+
 <%
-List<Integer> list = new ArrayList<Integer>();
-int[] is = new int[]{10, 12, 21, 54, 260, 830, 710};
-for(int i : is)
-	list.add(i);
+for(int i=1;i<=33;i++){
 %>
-  <div id="main" style="height:400px"></div>
+  <div id="main_<%=i %>" style="height:400px;width: 33.3%;float: left;"></div>
+<%} %>
 <script>
-	var myChart = echarts.init(document.getElementById('main')); 
-	
-	var option = {
+var option =null;
+var myChart = null;
+<%
+Map<String, List<Double>> mapList = (Map<String, List<Double>>)request.getAttribute("redMapList");
+String key = "";
+for(int j=1;j<=33;j++){
+	if(j<10)
+		key="0"+j;
+	else
+		key=""+j;
+%>
+	 option = {
 		    title : {
-		        text: '某楼盘销售情况',
-		        subtext: '纯属虚构'
+		        text: '<%=key%>球统计',
+		        subtext: '球球必达'
 		    },
 		    tooltip : {
 		        trigger: 'axis'
@@ -25,7 +33,7 @@ for(int i : is)
 		        data:['5期','10期','25期','50期']
 		    },
 		    toolbox: {
-		        show : true,
+		        show : false,
 		        feature : {
 		            mark : {show: true},
 		            dataView : {show: true, readOnly: false},
@@ -39,12 +47,20 @@ for(int i : is)
 		        {
 		            type : 'category',
 		            boundaryGap : false,
-		            data : ['周一','周二','周三','周四','周五','周六','周日']
+		            min:1,
+		            max:10,
+		            data : ['001','002','003','004','005','006','007','008','009','010']
 		        }
 		    ],
 		    yAxis : [
 		        {
-		            type : 'value'
+		            type : 'value',
+		            min:0.01,
+		            max:1.00,
+		            scale:true,
+		            splitNumber:20,
+		            splitArea:{show:true},
+		            precision:2
 		        }
 		    ],
 		    series : [
@@ -52,35 +68,36 @@ for(int i : is)
 		            name:'5期',
 		            type:'line',
 		            smooth:true,
-		            itemStyle: {normal: {areaStyle: {type: 'default'}}},
-		            data:<%=list.toString()%>
+		            itemStyle: {normal: { lineStyle: { shadowColor : 'rgba(0,0,0,0.4)', shadowBlur: 5, shadowOffsetX: 3, shadowOffsetY: 3}}},
+		            data:<%=mapList.get(key+ "_5").toString()%>
 		        },
 		        {
 		            name:'10期',
 		            type:'line',
 		            smooth:true,
-		            itemStyle: {normal: {areaStyle: {type: 'default'}}},
-		            data:[30, 182, 434, 791, 390, 30, 10]
+		            itemStyle: {normal: { lineStyle: { shadowColor : 'rgba(0,0,0,0.4)', shadowBlur: 5, shadowOffsetX: 3, shadowOffsetY: 3}}},
+		            data:<%=mapList.get(key+ "_10").toString()%>
 		        },
 		        {
 		            name:'25期',
 		            type:'line',
 		            smooth:true,
-		            itemStyle: {normal: {areaStyle: {type: 'default'}}},
-		            data:[1320, 1132, 601, 234, 120, 90, 20]
+		            itemStyle: {normal: { lineStyle: { shadowColor : 'rgba(0,0,0,0.4)', shadowBlur: 5, shadowOffsetX: 3, shadowOffsetY: 3}}},
+		            data:<%=mapList.get(key+ "_25").toString()%>
 		        },
 		        {
 		            name:'50期',
 		            type:'line',
 		            smooth:true,
-		            itemStyle: {normal: {areaStyle: {type: 'default'}}},
-		            data:[1420, 1332, 1601, 1234, 120, 190, 120]
+		            itemStyle: {normal: { lineStyle: { shadowColor : 'rgba(0,0,0,0.4)', shadowBlur: 5, shadowOffsetX: 3, shadowOffsetY: 3}}},
+		            data:<%=mapList.get(key+ "_50").toString()%>
 		        }
 		    ]
 		};
-		                    
-	myChart.setOption(option);  
-
-
+	  myChart = echarts.init(document.getElementById('main_<%=j%>')); 
+		myChart.setOption(option);  
+	 <%
+}
+	 %>
 
 </script>

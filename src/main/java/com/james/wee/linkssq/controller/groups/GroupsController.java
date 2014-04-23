@@ -3,13 +3,13 @@ package com.james.wee.linkssq.controller.groups;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.annotation.Resource;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -106,36 +106,65 @@ public class GroupsController {
 
 	@RequestMapping(value = "/cntLine", method = RequestMethod.POST)
 	public String cntLine(Model model) {
-		List<Double> d5 = new ArrayList<Double>();
-		List<Double> d10 = new ArrayList<Double>();
-		List<Double> d25 = new ArrayList<Double>();
-		List<Double> d50 = new ArrayList<Double>();
-		
-		for (int i = 1; i <= 10; i++) {
-			List<Map.Entry<String, Integer>> groups5 = presentDataService
-					.countPresentData(5, i);
-
-			List<Map.Entry<String, Integer>> groups10 = presentDataService
-					.countPresentData(10, i);
-
-			List<Map.Entry<String, Integer>> groups25 = presentDataService
-					.countPresentData(25, i);
-
-			List<Map.Entry<String, Integer>> groups50 = presentDataService
-					.countPresentData(50, i);
-//			for (int i = 0; i < 33; i++) {
-//				d5.add(divide(groups5.get(i).getValue().intValue(), 5));
-//				d10.add(divide(groups10.get(i).getValue().intValue(), 10));
-//				d25.add(divide(groups25.get(i).getValue().intValue(), 25));
-//				d50.add(divide(groups50.get(i).getValue().intValue(), 50));
-//			}
+		List<Double> tmp5 = null;
+		List<Double> tmp10 = null;
+		List<Double> tmp25 = null;
+		List<Double> tmp50 = null;
+		Map<String, List<Double>> mapList = new HashMap<String, List<Double>>();
+		String key = "";
+		for (int j = 1; j <= 33; j++) {
+			tmp5 = new ArrayList<Double>();
+			tmp10 = new ArrayList<Double>();
+			tmp25 = new ArrayList<Double>();
+			tmp50 = new ArrayList<Double>();
+			if (j < 10)
+				key = "0" + j;
+			else
+				key = "" + j;
+			for (int i = 9; i>= 0; i--) {
+				List<Map.Entry<String, Integer>> groups5 = presentDataService
+						.countPresentData(5, i);
+				for (Map.Entry<String, Integer> m : groups5) {
+					if (m.getKey().equals(key)) {
+						tmp5.add(this.divide(m.getValue(), 5));
+						break;
+					}
+				}
+				List<Map.Entry<String, Integer>> groups10 = presentDataService
+						.countPresentData(10, i);
+				for (Map.Entry<String, Integer> m : groups10) {
+					if (m.getKey().equals(key)) {
+						tmp10.add(this.divide(m.getValue(), 10));
+						break;
+					}
+				}
+				List<Map.Entry<String, Integer>> groups25 = presentDataService
+						.countPresentData(25, i);
+				for (Map.Entry<String, Integer> m : groups25) {
+					if (m.getKey().equals(key)) {
+						tmp25.add(this.divide(m.getValue(), 25));
+						break;
+					}
+				}
+				List<Map.Entry<String, Integer>> groups50 = presentDataService
+						.countPresentData(50, i);
+				for (Map.Entry<String, Integer> m : groups50) {
+					if (m.getKey().equals(key)) {
+						tmp50.add(this.divide(m.getValue(), 50));
+						break;
+					}
+				}
+			}
+			mapList.put(key + "_5", tmp5);
+			mapList.put(key + "_10", tmp10);
+			mapList.put(key + "_25", tmp25);
+			mapList.put(key + "_50", tmp50);
 		}
-	
-		model.addAttribute("line25", d25);
-		model.addAttribute("line10", d10);
-		model.addAttribute("line5", d5);
-		model.addAttribute("line50", d50);
 
+		// model.addAttribute("line25", d25);
+		// model.addAttribute("line10", d10);
+		// model.addAttribute("line5", d5);
+		 model.addAttribute("redMapList", mapList);
 		return "protecteds/ssqcnt/line";
 	}
 
