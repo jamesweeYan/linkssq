@@ -55,10 +55,10 @@ for(int j=1;j<=33;j++){
 		    yAxis : [
 		        {
 		            type : 'value',
-		            min:0.01,
+		            min:0.00,
 		            max:0.66,
 		            scale:true,
-		            splitNumber:24,
+		            splitNumber:10,
 		            splitArea:{show:true},
 		            precision:2
 		        }
