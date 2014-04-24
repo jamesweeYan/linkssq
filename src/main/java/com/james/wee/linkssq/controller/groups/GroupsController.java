@@ -61,12 +61,12 @@ public class GroupsController {
 
 			
 			String str = "";
-			String space = "";
+//			String space = "<span>";
 			for (int k=0,len=firstreds.length;k<len;k++) {
 				if (!tmp.contains(firstreds[k])){
 					tmp.add(firstreds[k]);
-					str+=space+firstreds[k];
-					space=" ";
+					str+="<span>"+firstreds[k]+"</span>&nbsp;";
+//					space=" ";
 				}
 			}
 			newmap.put("0" + i, str);
@@ -80,7 +80,7 @@ public class GroupsController {
 	public String cntInterval(@RequestParam("qv") String qv,
 			@RequestParam("qt") String qt, @RequestParam("depth") String depth,
 			@RequestParam("isasc") String isasc, Model model) {
-
+		List<CntModel> cmList = new ArrayList<CntModel>();
 		if (null == depth || "".equals(depth)) {
 			depth = "33";
 		}
@@ -163,14 +163,14 @@ public class GroupsController {
 			String[] k = keys.split(",");
 			String reds ="";
 			for(String e : k){
-			 reds += " "+redMap.get(e);
+			 reds +=  redMap.get(e);
 			//判断是否有重复项
 
-			model.addAttribute("intervalList", reds);
 			}
-			//list.add(map);
+			cm.setSpanReds(reds);
+			cmList.add(cm);
 		}
-	//	model.addAttribute("intervalList", list);
+		model.addAttribute("cmList", cmList);
 		return "protecteds/ssqcnt/interval";
 	}
 

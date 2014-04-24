@@ -23,6 +23,18 @@ public class CntModel implements java.io.Serializable {
 	private String zuMaReds;
 
 	private String redNum;
+	
+	private String spanReds;
+	
+	
+	public String getSpanReds() {
+		return spanReds;
+	}
+
+	public void setSpanReds(String spanReds) {
+		this.spanReds = spanReds;
+	}
+
 	public String getOpenNumDate() {
 		return openNumDate;
 	}
