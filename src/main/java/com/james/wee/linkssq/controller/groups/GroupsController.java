@@ -30,16 +30,19 @@ public class GroupsController {
 	@Resource
 	private CntService cntService;
 
-	private Map<String, Integer> countInterval(List<Presentdata> presentList) {
+	private Map<String, Object> countInterval(List<Presentdata> presentList) {
+		Map<String, Object> res = new HashMap<String, Object>();
 		Map<String, Integer> map = new HashMap<String, Integer>();
-		for (int i = 0; i < 6; i++)
+		Map<String, String> newmap = new HashMap<String, String>();
+		for (int i = 0; i < 5; i++)
 			map.put("0" + i, 0);
 		Presentdata first = null;// presentList.get(0);
 		String reds = "";
-
+		List<String> tmp = new ArrayList<String>();
 		for (int i = 0; i < 5; i++) {
 			first = presentList.get(i);
 			String firstreds[] = first.getOpenRedNums().split(" ");
+
 			for (String red : firstreds) {
 				int index = 0;
 				for (int j = 1 + i, len = presentList.size(); j < (len + i - 4); j++) {
@@ -51,12 +54,26 @@ public class GroupsController {
 						break;
 					}
 				}
-				if (index == (presentList.size() + i - 6)) {
-					map.put("05", map.get("05") + 1);
+//				if (index == (presentList.size() + i - 6)) {
+//					map.put("05", map.get("05") + 1);
+//				}
+			}
+
+			
+			String str = "";
+			String space = "";
+			for (int k=0,len=firstreds.length;k<len;k++) {
+				if (!tmp.contains(firstreds[k])){
+					tmp.add(firstreds[k]);
+					str+=space+firstreds[k];
+					space=" ";
 				}
 			}
+			newmap.put("0" + i, str);
 		}
-		return map;
+		res.put("intervalMap", map);
+		res.put("redInterval", newmap);
+		return res;
 	}
 
 	@RequestMapping(value = "/cntInterval", method = RequestMethod.POST)
@@ -68,7 +85,7 @@ public class GroupsController {
 			depth = "33";
 		}
 		int step = Integer.parseInt(qt);
-		List<Map<String, Integer>> list = new ArrayList<Map<String, Integer>>();
+		//List<Map<String, Integer>> list = new ArrayList<Map<String, Integer>>();
 		for (int j = Integer.parseInt(depth) - 1; j >= 0; j--) {
 			CntModel cm = new CntModel();
 			if ((step + j) > 0) {
@@ -85,10 +102,75 @@ public class GroupsController {
 
 			List<Presentdata> presentList = presentDataService
 					.queryPresentDataForPage(10, 1, (step + j));
-			Map<String, Integer> map = countInterval(presentList);
-			list.add(map);
+			Map<String, Object> map = countInterval(presentList);
+			// 对结果进行升序排序
+			List<Map.Entry<String, Integer>> listMap = new ArrayList<Map.Entry<String, Integer>>(
+					((Map<String, Integer>)map.get("intervalMap")).entrySet());
+			java.util.Collections.sort(listMap,
+					(a, b) -> a.getValue() - b.getValue()); 
+
+			//取红球
+			Map<String,String> redMap = (Map<String, String>)map.get("redInterval");
+			
+			int zero = listMap.get(0).getValue();
+			int one  = listMap.get(1).getValue();
+			int two  = listMap.get(2).getValue();
+			int thr =  listMap.get(3).getValue();
+			int fur =  listMap.get(4).getValue();
+			String keys = "";
+			String d = "";
+			if(zero==two){
+				keys +=d+listMap.get(0).getKey(); 
+				d=",";
+				keys+=d+listMap.get(1).getKey(); 
+				keys+=d+listMap.get(2).getKey(); 
+			}else{
+				if(zero==one){
+					keys +=d+listMap.get(0).getKey(); 
+					d=",";
+					keys+=d+listMap.get(1).getKey(); 
+				}else{
+					keys +=d+listMap.get(0).getKey(); 
+					d=",";
+				}
+					
+			}
+			
+			if(two==fur){
+				if(zero!=two){
+				keys +=d+listMap.get(2).getKey(); 
+				
+				keys+=d+listMap.get(3).getKey(); 
+				keys+=d+listMap.get(4).getKey(); 
+				}else{
+					keys+=d+listMap.get(3).getKey(); 
+					d=",";
+					keys+=d+listMap.get(4).getKey(); 
+				}
+			}else{
+				if(thr==fur){
+					keys+=d+listMap.get(3).getKey(); 
+					d=",";
+					keys+=d+listMap.get(4).getKey(); 
+				}else{
+					keys+=d+listMap.get(4).getKey(); 
+					d=",";
+				}
+			}
+			
+//			String firstKey = listMap.get(0).getKey();
+//			String lastKey =listMap.get(listMap.size()-1).getKey();
+			String[] k = keys.split(",");
+			String reds ="";
+			for(String e : k){
+			 reds += " "+redMap.get(e);
+			//判断是否有重复项
+
+			model.addAttribute("intervalList", reds);
+			}
+			//list.add(map);
 		}
-		model.addAttribute("intervalList", list);
+	//	model.addAttribute("intervalList", list);
 		return "protecteds/ssqcnt/interval";
 	}
 
