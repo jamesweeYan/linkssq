@@ -15,7 +15,7 @@
 <%
 for(int i=1;i<=33;i++){
 %>
-  <div id="main_<%=i %>" style="height:480px;width: 33.3%;float: left;"></div>
+  <div id="main_<%=i %>" style="height:480px;width: 33.333%;float: left;"></div>
 <%} %>
 <script>
 var option =null;
@@ -55,8 +55,6 @@ for(int j=1;j<=33;j++){
 		        {
 		            type : 'category',
 		            boundaryGap : false,
-		            min:1,
-		            max:10,
 		            data : ['001','002','003','004','005','006','007','008','009','010']
 		        }
 		    ],

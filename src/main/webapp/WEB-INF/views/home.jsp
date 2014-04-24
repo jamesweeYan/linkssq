@@ -51,11 +51,11 @@
 			样本排序？：<select id="isasc">
 			<option selected="selected" value="N">默认</option>
 			<option value="Y">升序</option>
-			</select><input type="button" onclick="query()" value="查询">
+			</select><input type="button" onclick="query()" value="频率分区选号">
 			<br/>
-			<input type="button" onclick="queryLine()" value="line">
+			<input type="button" onclick="queryLine()" value="频率趋势选号">
 			&nbsp;&nbsp;
-			<input type="button" onclick="queryInterval()" value="interval">
+			<input type="button" onclick="queryInterval()" value="间隔期选号">
 			<div id="groupsContentDIV" class="redBallBox"></div>
 		</div>
 

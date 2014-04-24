@@ -25,7 +25,7 @@
 			<ref bean="jobtask" />
 		</property>
 		<property name="cronExpression">
-			<value>0 0 8 ? * MON,WED,FRI</value><!-- cronExpression是Spring定时器的特殊属性 -->
+			<value>00 33 22 ? * MON,WED,FRI</value><!-- cronExpression是Spring定时器的特殊属性 -->
 		</property>
 	</bean>
 	<!-- 总管理类 如果将lazy-init='false'那么容器启动就会执行调度程序 -->
