@@ -3,7 +3,15 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page session="false"%>
-
+  <div>
+  <ul >
+<li style="float:left;width:19%;font-size: 10px;" >5期频率(0~0.6)如果连续3期以上走低到0则可能出现</font></li>
+<li style="float:left;width:19%;font-size: 10px;" >10期频率(0~0.4)如果连续3期以上走低到0则可能出现</li>
+<li style="float:left;width:24%;font-size: 10px;" >25期频率(0.04~0.32)如果连续3期以上走低到0.04则可能出现</li>
+<li style="float:left;width:20%;font-size: 10px;" >如果5期频率从0.2平台徘徊4期以后开始上行则可能出现</li>
+<li style="float:left;width:18%;font-size: 10px;" >如果5期频率上穿10期频率则进入活跃期</li>
+  </ul>
+  </div>
 <%
 for(int i=1;i<=33;i++){
 %>
