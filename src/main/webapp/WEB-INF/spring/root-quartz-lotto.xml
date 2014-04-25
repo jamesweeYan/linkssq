@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+	<!-- 要调用的工作类 -->
+	<bean id="quartzLottoJob" class="com.james.wee.linkssq.repository.task.UpdateLottoOpenDataJob"></bean>
+	<!-- 定义调用对象和调用对象的方法 -->
+	<bean id="lottojobtask"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<!-- 调用的类 -->
+		<property name="targetObject">
+			<ref bean="quartzLottoJob" />
+		</property>
+		<!-- 调用类中的方法 -->
+		<property name="targetMethod">
+			<value>work</value>
+		</property>
+	</bean>
+	<!-- 定义触发时间 -->
+
+	<bean id="lottodoTime"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail"><!-- jobDetail是Spring定时器的特殊属性 -->
+			<ref bean="lottojobtask" />
+		</property>
+		<property name="cronExpression">
+			<value>0 0 8 ? * TUE,THU,SUN</value><!-- cronExpression是Spring定时器的特殊属性 -->
+		</property>
+	</bean>
+	<!-- 总管理类 如果将lazy-init='false'那么容器启动就会执行调度程序 -->
+	<bean id="startQuertz" lazy-init="true" autowire="no"
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="lottodoTime" />
+			</list>
+		</property>
+	</bean>
+</beans>

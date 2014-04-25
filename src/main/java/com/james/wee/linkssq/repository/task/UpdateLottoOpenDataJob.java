@@ -6,25 +6,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.james.wee.linkssq.repository.service.LottoDataService;
-import com.james.wee.linkssq.repository.service.PresentDataService;
 
-public class UpdateOpenDataJob {
+public class UpdateLottoOpenDataJob {
 	private static final Logger logger = LoggerFactory
-			.getLogger(UpdateOpenDataJob.class);
-	@Resource
-	private PresentDataService presentDataService;
+			.getLogger(UpdateLottoOpenDataJob.class);
 	@Resource
 	private LottoDataService lottoDataService;
-	public PresentDataService getPresentDataService() {
-		return presentDataService;
-	}
-
-	public void setPresentDataService(PresentDataService presentDataService) {
-		this.presentDataService = presentDataService;
-	}
-
-	
-
 	public LottoDataService getLottoDataService() {
 		return lottoDataService;
 	}
@@ -34,9 +21,9 @@ public class UpdateOpenDataJob {
 	}
 
 	public void work() {
-		logger.info("======================开始执行调度任务更新最新开奖数据=========================");
-		this.presentDataService.updatePresentDataByLast();
-		logger.info("======================结束执行调度任务更新最新开奖数据=========================");
+		logger.info("======================开始执行调度任务更新大乐透最新开奖数据=========================");
+		this.lottoDataService.updateLastOpenData();
+		logger.info("======================结束执行调度任务更新大乐透最新开奖数据=========================");
 		
 //		List<Presentdata> list = presentDataService.queryPresentDataForPage(1,
 //				1, 0);
