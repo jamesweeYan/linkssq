@@ -49,6 +49,8 @@ public class PresentDataDao {
 			try {
 				present = queryPresentDataByOpenSeries(present
 						.getPresentSeries());
+				presentAllData.clear();
+				presentAllData.addAll(queryAllPresentData());
 			} catch (Exception e) {
 				try {
 //					logger.info("present====>" + present);
