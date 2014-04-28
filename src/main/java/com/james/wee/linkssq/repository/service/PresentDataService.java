@@ -64,9 +64,10 @@ public class PresentDataService {
 	public Map<String, Map<String, CrossModel>> crossCount() {
 		Map<String, Map<String, CrossModel>> res = new TreeMap<String, Map<String, CrossModel>>();
 		Map<String, String> map = HtmlParse.crossAlltoReds();
-		Map<String, CrossModel> mc = new HashMap<String, CrossModel>();
+		Map<String, CrossModel> mc =null;
 		List<Presentdata> list = queryPresentDataForPage(5, 1, 0);
 		for (Presentdata present : list) {
+			mc = new HashMap<String, CrossModel>();
 			// 3区
 			CrossModel cmMal3 = new CrossModel(present, map.get("malThr0"),
 					map.get("malThr1"), map.get("malThr2"), null, null);
@@ -98,4 +99,6 @@ public class PresentDataService {
 		}
 		return res;
 	}
+	
+	
 }

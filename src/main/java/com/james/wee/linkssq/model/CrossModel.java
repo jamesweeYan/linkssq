@@ -7,7 +7,11 @@ package com.james.wee.linkssq.model;
  * @author James
  *
  */
-public class CrossModel {
+public class CrossModel implements java.io.Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -523696353756089585L;
 	private String presentSeries;
 	private String r1;
 	private String r2;

@@ -90,8 +90,10 @@ public class GroupsController {
 		Map<String, Map<String, CrossModel>> map = presentDataService
 				.crossCount();
 		java.util.Iterator<String> keys = map.keySet().iterator();
+		String key = null;
 		for (; keys.hasNext();) {
-			Map<String, CrossModel> mc = map.get(keys.next());
+			key = keys.next();
+			Map<String, CrossModel> mc = map.get(key);
 			mal3List.add(mc.get("mal3"));
 			cross3List.add(mc.get("cross3"));
 			mal4List.add(mc.get("mal4"));
@@ -112,11 +114,11 @@ public class GroupsController {
 		model.addAttribute("nomal3",mal3List);
 		model.addAttribute("cross3",cross3List);
 		
-		model.addAttribute("nomal4",mal3List);
-		model.addAttribute("cross4",cross3List);
+		model.addAttribute("nomal4",mal4List);
+		model.addAttribute("cross4",cross4List);
 		
-		model.addAttribute("nomal5",mal3List);
-		model.addAttribute("cross5",cross3List);
+		model.addAttribute("nomal5",mal5List);
+		model.addAttribute("cross5",cross5List);
 		return "protecteds/ssqcnt/cross";
 	}
 
