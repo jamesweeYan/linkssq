@@ -3,8 +3,10 @@
  */
 package com.james.wee.linkssq.repository.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import javax.annotation.Resource;
 
@@ -12,8 +14,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.james.wee.linkssq.model.CrossModel;
 import com.james.wee.linkssq.model.Presentdata;
 import com.james.wee.linkssq.repository.dao.PresentDataDao;
+import com.james.wee.linkssq.util.HtmlParse;
 
 /**
  * @author James
@@ -48,11 +52,50 @@ public class PresentDataService {
 
 	}
 
-	public List<Map.Entry<String, Integer>> countPresentData(int groups, int index) {
+	public List<Map.Entry<String, Integer>> countPresentData(int groups,
+			int index) {
 		return presentDataDao.countPresentData(groups, index);
 	}
 
 	public List<Presentdata> queryAllPresentData() {
 		return presentDataDao.queryAllPresentData();
+	}
+
+	public Map<String, Map<String, CrossModel>> crossCount() {
+		Map<String, Map<String, CrossModel>> res = new TreeMap<String, Map<String, CrossModel>>();
+		Map<String, String> map = HtmlParse.crossAlltoReds();
+		Map<String, CrossModel> mc = new HashMap<String, CrossModel>();
+		List<Presentdata> list = queryPresentDataForPage(5, 1, 0);
+		for (Presentdata present : list) {
+			// 3区
+			CrossModel cmMal3 = new CrossModel(present, map.get("malThr0"),
+					map.get("malThr1"), map.get("malThr2"), null, null);
+			mc.put("mal3", cmMal3);
+			// cross 3
+			CrossModel cmCross3 = new CrossModel(present, map.get("thr0"),
+					map.get("thr1"), map.get("thr2"), null, null);
+			mc.put("cross3", cmCross3);
+			// 4区
+			CrossModel cmMal4 = new CrossModel(present, map.get("malFurr0"),
+					map.get("malFurr1"), map.get("malFurr2"),
+					map.get("malFurr3"), null);
+			mc.put("mal4", cmMal4);
+			// cross 4
+			CrossModel cmCross4 = new CrossModel(present, map.get("fur0"),
+					map.get("fur0"), map.get("fur0"), map.get("fur0"), null);
+			mc.put("cross4", cmCross4);
+			// 5区
+			CrossModel cmMal5 = new CrossModel(present, map.get("malFve0"),
+					map.get("malFve1"), map.get("malFve2"), map.get("malFve3"),
+					map.get("malFve4"));
+			mc.put("mal5", cmMal5);
+			// cross 5
+			CrossModel cmCross5 = new CrossModel(present, map.get("malFve0"),
+					map.get("fve0"), map.get("fve0"), map.get("fve0"),
+					map.get("fve0"));
+			mc.put("cross5", cmCross5);
+			res.put(present.getPresentSeries(), mc);
+		}
+		return res;
 	}
 }

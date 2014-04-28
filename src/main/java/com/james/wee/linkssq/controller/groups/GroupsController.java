@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.james.wee.linkssq.model.CntModel;
+import com.james.wee.linkssq.model.CrossModel;
 import com.james.wee.linkssq.model.Presentdata;
 import com.james.wee.linkssq.repository.service.CntService;
 import com.james.wee.linkssq.repository.service.FunDataService;
@@ -54,19 +55,18 @@ public class GroupsController {
 						break;
 					}
 				}
-//				if (index == (presentList.size() + i - 6)) {
-//					map.put("05", map.get("05") + 1);
-//				}
+				// if (index == (presentList.size() + i - 6)) {
+				// map.put("05", map.get("05") + 1);
+				// }
 			}
 
-			
 			String str = "";
-//			String space = "<span>";
-			for (int k=0,len=firstreds.length;k<len;k++) {
-				if (!tmp.contains(firstreds[k])){
+			// String space = "<span>";
+			for (int k = 0, len = firstreds.length; k < len; k++) {
+				if (!tmp.contains(firstreds[k])) {
 					tmp.add(firstreds[k]);
-					str+="<span>"+firstreds[k]+"</span>&nbsp;";
-//					space=" ";
+					str += "<span>" + firstreds[k] + "</span>&nbsp;";
+					// space=" ";
 				}
 			}
 			newmap.put("0" + i, str);
@@ -74,6 +74,50 @@ public class GroupsController {
 		res.put("intervalMap", map);
 		res.put("redInterval", newmap);
 		return res;
+	}
+
+	@RequestMapping(value = "/cntCross", method = RequestMethod.POST)
+	public String cntCross(Model model) {
+		List<CrossModel> mal3List = new ArrayList<CrossModel>();
+		List<CrossModel> cross3List = new ArrayList<CrossModel>();
+
+		List<CrossModel> mal4List = new ArrayList<CrossModel>();
+		List<CrossModel> cross4List = new ArrayList<CrossModel>();
+
+		List<CrossModel> mal5List = new ArrayList<CrossModel>();
+		List<CrossModel> cross5List = new ArrayList<CrossModel>();
+
+		Map<String, Map<String, CrossModel>> map = presentDataService
+				.crossCount();
+		java.util.Iterator<String> keys = map.keySet().iterator();
+		for (; keys.hasNext();) {
+			Map<String, CrossModel> mc = map.get(keys.next());
+			mal3List.add(mc.get("mal3"));
+			cross3List.add(mc.get("cross3"));
+			mal4List.add(mc.get("mal4"));
+			cross4List.add(mc.get("cross4"));
+
+			mal5List.add(mc.get("mal5"));
+			cross5List.add(mc.get("cross5"));
+		}
+		
+		//排序
+		java.util.Collections.sort(mal3List,(a,b)->a.getPresentSeries().compareTo(b.getPresentSeries()));
+		java.util.Collections.sort(cross3List,(a,b)->a.getPresentSeries().compareTo(b.getPresentSeries()));
+		java.util.Collections.sort(mal4List,(a,b)->a.getPresentSeries().compareTo(b.getPresentSeries()));
+		java.util.Collections.sort(cross4List,(a,b)->a.getPresentSeries().compareTo(b.getPresentSeries()));
+		java.util.Collections.sort(mal5List,(a,b)->a.getPresentSeries().compareTo(b.getPresentSeries()));
+		java.util.Collections.sort(cross5List,(a,b)->a.getPresentSeries().compareTo(b.getPresentSeries()));
+		
+		model.addAttribute("nomal3",mal3List);
+		model.addAttribute("cross3",cross3List);
+		
+		model.addAttribute("nomal4",mal3List);
+		model.addAttribute("cross4",cross3List);
+		
+		model.addAttribute("nomal5",mal3List);
+		model.addAttribute("cross5",cross3List);
+		return "protecteds/ssqcnt/cross";
 	}
 
 	@RequestMapping(value = "/cntInterval", method = RequestMethod.POST)
@@ -85,7 +129,8 @@ public class GroupsController {
 			depth = "33";
 		}
 		int step = Integer.parseInt(qt);
-		//List<Map<String, Integer>> list = new ArrayList<Map<String, Integer>>();
+		// List<Map<String, Integer>> list = new ArrayList<Map<String,
+		// Integer>>();
 		for (int j = Integer.parseInt(depth) - 1; j >= 0; j--) {
 			CntModel cm = new CntModel();
 			if ((step + j) > 0) {
@@ -105,66 +150,67 @@ public class GroupsController {
 			Map<String, Object> map = countInterval(presentList);
 			// 对结果进行升序排序
 			List<Map.Entry<String, Integer>> listMap = new ArrayList<Map.Entry<String, Integer>>(
-					((Map<String, Integer>)map.get("intervalMap")).entrySet());
+					((Map<String, Integer>) map.get("intervalMap")).entrySet());
 			java.util.Collections.sort(listMap,
-					(a, b) -> a.getValue() - b.getValue()); 
+					(a, b) -> a.getValue() - b.getValue());
 
-			//取红球
-			Map<String,String> redMap = (Map<String, String>)map.get("redInterval");
-			
+			// 取红球
+			Map<String, String> redMap = (Map<String, String>) map
+					.get("redInterval");
+
 			int zero = listMap.get(0).getValue();
-			int one  = listMap.get(1).getValue();
-			int two  = listMap.get(2).getValue();
-			int thr =  listMap.get(3).getValue();
-			int fur =  listMap.get(4).getValue();
+			int one = listMap.get(1).getValue();
+			int two = listMap.get(2).getValue();
+			int thr = listMap.get(3).getValue();
+			int fur = listMap.get(4).getValue();
 			String keys = "";
 			String d = "";
-			if(zero==two){
-				keys +=d+listMap.get(0).getKey(); 
-				d=",";
-				keys+=d+listMap.get(1).getKey(); 
-				keys+=d+listMap.get(2).getKey(); 
-			}else{
-				if(zero==one){
-					keys +=d+listMap.get(0).getKey(); 
-					d=",";
-					keys+=d+listMap.get(1).getKey(); 
-				}else{
-					keys +=d+listMap.get(0).getKey(); 
-					d=",";
+			if (zero == two) {
+				keys += d + listMap.get(0).getKey();
+				d = ",";
+				keys += d + listMap.get(1).getKey();
+				keys += d + listMap.get(2).getKey();
+			} else {
+				if (zero == one) {
+					keys += d + listMap.get(0).getKey();
+					d = ",";
+					keys += d + listMap.get(1).getKey();
+				} else {
+					keys += d + listMap.get(0).getKey();
+					d = ",";
 				}
-					
+
 			}
-			
-			if(two==fur){
-				if(zero!=two){
-				keys +=d+listMap.get(2).getKey(); 
-				
-				keys+=d+listMap.get(3).getKey(); 
-				keys+=d+listMap.get(4).getKey(); 
-				}else{
-					keys+=d+listMap.get(3).getKey(); 
-					d=",";
-					keys+=d+listMap.get(4).getKey(); 
+
+			if (two == fur) {
+				if (zero != two) {
+					keys += d + listMap.get(2).getKey();
+
+					keys += d + listMap.get(3).getKey();
+					keys += d + listMap.get(4).getKey();
+				} else {
+					keys += d + listMap.get(3).getKey();
+					d = ",";
+					keys += d + listMap.get(4).getKey();
 				}
-			}else{
-				if(thr==fur){
-					keys+=d+listMap.get(3).getKey(); 
-					d=",";
-					keys+=d+listMap.get(4).getKey(); 
-				}else{
-					keys+=d+listMap.get(4).getKey(); 
-					d=",";
+			} else {
+				if (thr == fur) {
+					keys += d + listMap.get(3).getKey();
+					d = ",";
+					keys += d + listMap.get(4).getKey();
+				} else {
+					keys += d + listMap.get(4).getKey();
+					d = ",";
 				}
 			}
-			
-//			String firstKey = listMap.get(0).getKey();
-//			String lastKey =listMap.get(listMap.size()-1).getKey();
+
+			// String firstKey = listMap.get(0).getKey();
+			// String lastKey =listMap.get(listMap.size()-1).getKey();
 			String[] k = keys.split(",");
-			String reds ="";
-			for(String e : k){
-			 reds +=  redMap.get(e);
-			//判断是否有重复项
+			String reds = "";
+			for (String e : k) {
+				reds += redMap.get(e);
+				// 判断是否有重复项
 
 			}
 			cm.setSpanReds(reds);

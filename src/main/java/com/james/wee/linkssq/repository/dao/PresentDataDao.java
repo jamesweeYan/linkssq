@@ -85,7 +85,7 @@ public class PresentDataDao {
 	 * @param pageSize
 	 * @param currageNo
 	 * @param index
-	 *            鏁版嵁鐨勭储寮�
+	 *            
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
