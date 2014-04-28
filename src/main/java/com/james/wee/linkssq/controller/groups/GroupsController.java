@@ -294,7 +294,6 @@ public class GroupsController {
 
 	@RequestMapping(value = "/cntLine", method = RequestMethod.POST)
 	public String cntLine(Model model) {
-		long start = System.currentTimeMillis();
 		List<Double> tmp5 = null;
 		List<Double> tmp10 = null;
 		List<Double> tmp25 = null;
@@ -351,7 +350,6 @@ public class GroupsController {
 		}
 
 		model.addAttribute("redMapList", mapList);
-		System.out.println(((System.currentTimeMillis()-start)/1000)+"=============================alltime=====");
 		return "protecteds/ssqcnt/line";
 	}
 
