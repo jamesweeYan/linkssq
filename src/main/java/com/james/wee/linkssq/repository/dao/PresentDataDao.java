@@ -29,6 +29,7 @@ public class PresentDataDao {
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(PresentDataDao.class);
+	private static final List<Presentdata> presentAllData = new ArrayList<Presentdata>();
 	private EntityManager entityManager;
 
 	public EntityManager getEntityManager() {
@@ -85,17 +86,21 @@ public class PresentDataDao {
 	 * @param pageSize
 	 * @param currageNo
 	 * @param index
-	 *            鏁版嵁鐨勭储寮�
+	 *            
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
+//	@SuppressWarnings("unchecked")
 	public List<Presentdata> queryPresentDataForPage(int pageSize,
 			int currageNo, int index) {
-		Query query = entityManager
-				.createQuery("SELECT p FROM Presentdata p ORDER BY p.id DESC");
-		query.setFirstResult((currageNo - 1) * pageSize + index);
-		query.setMaxResults(pageSize);
-		return query.getResultList();
+		if(presentAllData.isEmpty()){
+			presentAllData.addAll(queryAllPresentData());
+		}
+//		Query query = entityManager
+//				.createQuery("SELECT p FROM Presentdata p ORDER BY p.id DESC");
+//		query.setFirstResult((currageNo - 1) * pageSize + index);
+//		query.setMaxResults(pageSize);
+//		return query.getResultList();
+		return presentAllData.subList((currageNo - 1) * pageSize + index, (currageNo - 1) * pageSize + index+pageSize);
 
 	}
 
