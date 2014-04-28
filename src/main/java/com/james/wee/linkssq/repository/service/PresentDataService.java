@@ -83,7 +83,7 @@ public class PresentDataService {
 			mc.put("mal4", cmMal4);
 			// cross 4
 			CrossModel cmCross4 = new CrossModel(present, map.get("fur0"),
-					map.get("fur0"), map.get("fur0"), map.get("fur0"), null);
+					map.get("fur1"), map.get("fur2"), map.get("fur3"), null);
 			mc.put("cross4", cmCross4);
 			// 5区
 			CrossModel cmMal5 = new CrossModel(present, map.get("malFve0"),
@@ -91,9 +91,9 @@ public class PresentDataService {
 					map.get("malFve4"));
 			mc.put("mal5", cmMal5);
 			// cross 5
-			CrossModel cmCross5 = new CrossModel(present, map.get("malFve0"),
-					map.get("fve0"), map.get("fve0"), map.get("fve0"),
-					map.get("fve0"));
+			CrossModel cmCross5 = new CrossModel(present, map.get("fve0"),
+					map.get("fve1"), map.get("fve2"), map.get("fve3"),
+					map.get("fve4"));
 			mc.put("cross5", cmCross5);
 			res.put(present.getPresentSeries(), mc);
 		}
