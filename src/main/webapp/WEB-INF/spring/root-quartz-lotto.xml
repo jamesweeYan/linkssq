@@ -25,11 +25,11 @@
 			<ref bean="lottojobtask" />
 		</property>
 		<property name="cronExpression">
-			<value>0 30 10 ? * TUE,THU,SUN</value><!-- cronExpression是Spring定时器的特殊属性 -->
+			<value>10 10 16 ? * TUE,THU,SUN</value><!-- cronExpression是Spring定时器的特殊属性 -->
 		</property>
 	</bean>
 	<!-- 总管理类 如果将lazy-init='false'那么容器启动就会执行调度程序 -->
-	<bean id="startQuertz" lazy-init="true" autowire="no"
+	<bean id="startLottoQuertz" lazy-init="true" autowire="no"
 		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 		<property name="triggers">
 			<list>

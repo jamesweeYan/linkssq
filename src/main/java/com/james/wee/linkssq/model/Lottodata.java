@@ -58,7 +58,7 @@ public class Lottodata implements Serializable {
 		this.r4 = last[5];
 		this.r5 = last[6];
 		this.BLUE_prv = last[7];
-		this.BLUE_prv = last[8];
+		this.BLUE_bac = last[8];
 		this.calc = Integer.parseInt(last[9]);
 		
 	}
@@ -148,6 +148,13 @@ public class Lottodata implements Serializable {
 
 	public void setR5(String r5) {
 		this.r5 = r5;
+	}
+	@Override
+	public String toString() {
+		return "Lottodata [id=" + id + ", BLUE_bac=" + BLUE_bac + ", BLUE_prv="
+				+ BLUE_prv + ", calc=" + calc + ", lottoDate=" + lottoDate
+				+ ", lottoSeries=" + lottoSeries + ", r1=" + r1 + ", r2=" + r2
+				+ ", r3=" + r3 + ", r4=" + r4 + ", r5=" + r5 + "]";
 	}
 
 }

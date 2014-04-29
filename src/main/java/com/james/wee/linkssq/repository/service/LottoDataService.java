@@ -9,6 +9,8 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.james.wee.linkssq.model.Lottodata;
 import com.james.wee.linkssq.repository.dao.LottoDao;
@@ -29,7 +31,7 @@ public class LottoDataService {
 	public void setLottoDao(LottoDao lottoDao) {
 		this.lottoDao = lottoDao;
 	}
-
+	@Transactional(propagation = Propagation.REQUIRED)
 	public boolean updateLastOpenData() {
 		return lottoDao.updateLastOpenData();
 	}
