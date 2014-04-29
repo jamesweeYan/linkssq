@@ -7,7 +7,7 @@ package com.james.wee.linkssq.model;
  * @author James
  *
  */
-public class CrossModel implements java.io.Serializable{
+public class CrossModel implements java.io.Serializable {
 	/**
 	 * 
 	 */
@@ -20,11 +20,11 @@ public class CrossModel implements java.io.Serializable{
 	private String r5;
 	private String r6;
 
-	private Integer crossCnt1=0;
-	private Integer crossCnt2=0;
-	private Integer crossCnt3=0;
-	private Integer crossCnt4=0;
-	private Integer crossCnt5=0;
+	private Integer crossCnt1 = 0;
+	private Integer crossCnt2 = 0;
+	private Integer crossCnt3 = 0;
+	private Integer crossCnt4 = 0;
+	private Integer crossCnt5 = 0;
 
 	private String crossReds1;
 	private String crossReds2;
@@ -32,8 +32,12 @@ public class CrossModel implements java.io.Serializable{
 	private String crossReds4;
 	private String crossReds5;
 
-	
-	
+	private String crossReds1ToSpan;
+	private String crossReds2ToSpan;
+	private String crossReds3ToSpan;
+	private String crossReds4ToSpan;
+	private String crossReds5ToSpan;
+
 	public CrossModel(Presentdata present, String crossReds1,
 			String crossReds2, String crossReds3, String crossReds4,
 			String crossReds5) {
@@ -41,91 +45,108 @@ public class CrossModel implements java.io.Serializable{
 		this.presentSeries = present.getPresentSeries();
 		this.r1 = present.getR1();
 		this.r2 = present.getR2();
-		this.r3 =present.getR3();
+		this.r3 = present.getR3();
 		this.r4 = present.getR4();
-		this.r5 =present.getR5();
+		this.r5 = present.getR5();
 		this.r6 = present.getR6();
 		this.crossReds1 = crossReds1;
 		this.crossReds2 = crossReds2;
 		this.crossReds3 = crossReds3;
 		this.crossReds4 = crossReds4;
 		this.crossReds5 = crossReds5;
-		
-		if(null!=crossReds1){
-			if(this.crossReds1.indexOf(r1)!=-1)
-				this.crossCnt1+=1;
-			if(this.crossReds1.indexOf(r2)!=-1)
-				this.crossCnt1+=1;
-			if(this.crossReds1.indexOf(r3)!=-1)
-				this.crossCnt1+=1;
-			if(this.crossReds1.indexOf(r4)!=-1)
-				this.crossCnt1+=1;
-			if(this.crossReds1.indexOf(r5)!=-1)
-				this.crossCnt1+=1;
-			if(this.crossReds1.indexOf(r6)!=-1)
-				this.crossCnt1+=1;
+
+		if (null != crossReds1) {
+			if (this.crossReds1.indexOf(r1) != -1)
+				this.crossCnt1 += 1;
+			if (this.crossReds1.indexOf(r2) != -1)
+				this.crossCnt1 += 1;
+			if (this.crossReds1.indexOf(r3) != -1)
+				this.crossCnt1 += 1;
+			if (this.crossReds1.indexOf(r4) != -1)
+				this.crossCnt1 += 1;
+			if (this.crossReds1.indexOf(r5) != -1)
+				this.crossCnt1 += 1;
+			if (this.crossReds1.indexOf(r6) != -1)
+				this.crossCnt1 += 1;
 		}
-		
-		
-		if(null!=crossReds2){
-			if(this.crossReds2.indexOf(r1)!=-1)
-				this.crossCnt2+=1;
-			if(this.crossReds2.indexOf(r2)!=-1)
-				this.crossCnt2+=1;
-			if(this.crossReds2.indexOf(r3)!=-1)
-				this.crossCnt2+=1;
-			if(this.crossReds2.indexOf(r4)!=-1)
-				this.crossCnt2+=1;
-			if(this.crossReds2.indexOf(r5)!=-1)
-				this.crossCnt2+=1;
-			if(this.crossReds2.indexOf(r6)!=-1)
-				this.crossCnt2+=1;
+
+		if (null != crossReds2) {
+			if (this.crossReds2.indexOf(r1) != -1)
+				this.crossCnt2 += 1;
+			if (this.crossReds2.indexOf(r2) != -1)
+				this.crossCnt2 += 1;
+			if (this.crossReds2.indexOf(r3) != -1)
+				this.crossCnt2 += 1;
+			if (this.crossReds2.indexOf(r4) != -1)
+				this.crossCnt2 += 1;
+			if (this.crossReds2.indexOf(r5) != -1)
+				this.crossCnt2 += 1;
+			if (this.crossReds2.indexOf(r6) != -1)
+				this.crossCnt2 += 1;
 		}
-		
-		if(null!=crossReds3){
-			if(this.crossReds3.indexOf(r1)!=-1)
-				this.crossCnt3+=1;
-			if(this.crossReds3.indexOf(r2)!=-1)
-				this.crossCnt3+=1;
-			if(this.crossReds3.indexOf(r3)!=-1)
-				this.crossCnt3+=1;
-			if(this.crossReds3.indexOf(r4)!=-1)
-				this.crossCnt3+=1;
-			if(this.crossReds3.indexOf(r5)!=-1)
-				this.crossCnt3+=1;
-			if(this.crossReds3.indexOf(r6)!=-1)
-				this.crossCnt3+=1;
+
+		if (null != crossReds3) {
+			if (this.crossReds3.indexOf(r1) != -1)
+				this.crossCnt3 += 1;
+			if (this.crossReds3.indexOf(r2) != -1)
+				this.crossCnt3 += 1;
+			if (this.crossReds3.indexOf(r3) != -1)
+				this.crossCnt3 += 1;
+			if (this.crossReds3.indexOf(r4) != -1)
+				this.crossCnt3 += 1;
+			if (this.crossReds3.indexOf(r5) != -1)
+				this.crossCnt3 += 1;
+			if (this.crossReds3.indexOf(r6) != -1)
+				this.crossCnt3 += 1;
 		}
-		
-		if(null!=crossReds4){
-			if(this.crossReds4.indexOf(r1)!=-1)
-				this.crossCnt4+=1;
-			if(this.crossReds4.indexOf(r2)!=-1)
-				this.crossCnt4+=1;
-			if(this.crossReds4.indexOf(r3)!=-1)
-				this.crossCnt4+=1;
-			if(this.crossReds4.indexOf(r4)!=-1)
-				this.crossCnt4+=1;
-			if(this.crossReds4.indexOf(r5)!=-1)
-				this.crossCnt4+=1;
-			if(this.crossReds4.indexOf(r6)!=-1)
-				this.crossCnt4+=1;
+
+		if (null != crossReds4) {
+			if (this.crossReds4.indexOf(r1) != -1)
+				this.crossCnt4 += 1;
+			if (this.crossReds4.indexOf(r2) != -1)
+				this.crossCnt4 += 1;
+			if (this.crossReds4.indexOf(r3) != -1)
+				this.crossCnt4 += 1;
+			if (this.crossReds4.indexOf(r4) != -1)
+				this.crossCnt4 += 1;
+			if (this.crossReds4.indexOf(r5) != -1)
+				this.crossCnt4 += 1;
+			if (this.crossReds4.indexOf(r6) != -1)
+				this.crossCnt4 += 1;
 		}
-		
-		if(null!=crossReds5){
-			if(this.crossReds5.indexOf(r1)!=-1)
-				this.crossCnt5+=1;
-			if(this.crossReds5.indexOf(r2)!=-1)
-				this.crossCnt5+=1;
-			if(this.crossReds5.indexOf(r3)!=-1)
-				this.crossCnt5+=1;
-			if(this.crossReds5.indexOf(r4)!=-1)
-				this.crossCnt5+=1;
-			if(this.crossReds5.indexOf(r5)!=-1)
-				this.crossCnt5+=1;
-			if(this.crossReds5.indexOf(r6)!=-1)
-				this.crossCnt5+=1;
+
+		if (null != crossReds5) {
+			if (this.crossReds5.indexOf(r1) != -1)
+				this.crossCnt5 += 1;
+			if (this.crossReds5.indexOf(r2) != -1)
+				this.crossCnt5 += 1;
+			if (this.crossReds5.indexOf(r3) != -1)
+				this.crossCnt5 += 1;
+			if (this.crossReds5.indexOf(r4) != -1)
+				this.crossCnt5 += 1;
+			if (this.crossReds5.indexOf(r5) != -1)
+				this.crossCnt5 += 1;
+			if (this.crossReds5.indexOf(r6) != -1)
+				this.crossCnt5 += 1;
 		}
+
+		this.crossReds1ToSpan = "<span>"
+				+ this.crossReds1.trim().replaceAll(" ", "</span>&nbsp;&nbsp;<span>")
+				+ "</span>";
+		this.crossReds2ToSpan = "<span>"
+				+ this.crossReds2.trim().replaceAll(" ", "</span>&nbsp;&nbsp;<span>")
+				+ "</span>";
+		this.crossReds3ToSpan = "<span>"
+				+ this.crossReds3.trim().replaceAll(" ", "</span>&nbsp;&nbsp;<span>")
+				+ "</span>";
+		if (null != this.crossReds4)
+			this.crossReds4ToSpan = "<span>"
+					+ this.crossReds4.trim().replaceAll(" ", "</span>&nbsp;&nbsp;<span>")
+					+ "</span>";
+		if (null != this.crossReds5)
+			this.crossReds5ToSpan = "<span>"
+					+ this.crossReds5.trim().replaceAll(" ", "</span>&nbsp;&nbsp;<span>")
+					+ "</span>";
 	}
 
 	public String getPresentSeries() {
@@ -262,6 +283,46 @@ public class CrossModel implements java.io.Serializable{
 
 	public void setCrossReds5(String crossReds5) {
 		this.crossReds5 = crossReds5;
+	}
+
+	public String getCrossReds1ToSpan() {
+		return crossReds1ToSpan;
+	}
+
+	public void setCrossReds1ToSpan(String crossReds1ToSpan) {
+		this.crossReds1ToSpan = crossReds1ToSpan;
+	}
+
+	public String getCrossReds2ToSpan() {
+		return crossReds2ToSpan;
+	}
+
+	public void setCrossReds2ToSpan(String crossReds2ToSpan) {
+		this.crossReds2ToSpan = crossReds2ToSpan;
+	}
+
+	public String getCrossReds3ToSpan() {
+		return crossReds3ToSpan;
+	}
+
+	public void setCrossReds3ToSpan(String crossReds3ToSpan) {
+		this.crossReds3ToSpan = crossReds3ToSpan;
+	}
+
+	public String getCrossReds4ToSpan() {
+		return crossReds4ToSpan;
+	}
+
+	public void setCrossReds4ToSpan(String crossReds4ToSpan) {
+		this.crossReds4ToSpan = crossReds4ToSpan;
+	}
+
+	public String getCrossReds5ToSpan() {
+		return crossReds5ToSpan;
+	}
+
+	public void setCrossReds5ToSpan(String crossReds5ToSpan) {
+		this.crossReds5ToSpan = crossReds5ToSpan;
 	}
 
 }

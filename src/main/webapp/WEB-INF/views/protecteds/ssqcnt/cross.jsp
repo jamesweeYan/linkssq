@@ -160,19 +160,19 @@
 		<td
 				style="width: 22%; border-right-style: solid; border-bottom-color: #DCE2F1; border-left-style: solid; border-left-color: #DCE2F1; border-top-color: #DCE2F1; border-bottom-style: solid; border-right-color: #DCE2F1; border-top-style: solid; background-color: #DCE2F1;"
 				align="left">余0</td>
-		<td colspan="9">${cm.crossReds1 }</td>
+		<td colspan="9">${cm.crossReds1ToSpan }</td>
 		</tr>
 			<tr>
 		<td
 				style="width: 22%; border-right-style: solid; border-bottom-color: #DCE2F1; border-left-style: solid; border-left-color: #DCE2F1; border-top-color: #DCE2F1; border-bottom-style: solid; border-right-color: #DCE2F1; border-top-style: solid; background-color: #DCE2F1;"
 				align="left">余1</td>
-		<td colspan="9">${cm.crossReds2 }</td>
+		<td colspan="9">${cm.crossReds2ToSpan }</td>
 		</tr>
 			<tr>
 		<td
 				style="width: 22%; border-right-style: solid; border-bottom-color: #DCE2F1; border-left-style: solid; border-left-color: #DCE2F1; border-top-color: #DCE2F1; border-bottom-style: solid; border-right-color: #DCE2F1; border-top-style: solid; background-color: #DCE2F1;"
 				align="left">余2</td>
-		<td colspan="9">${cm.crossReds3 }</td>
+		<td colspan="9">${cm.crossReds3ToSpan }</td>
 		</tr>
 		</c:if>
 	</c:forEach>
@@ -348,25 +348,25 @@
 		<td
 				style="width: 22%; border-right-style: solid; border-bottom-color: #DCE2F1; border-left-style: solid; border-left-color: #DCE2F1; border-top-color: #DCE2F1; border-bottom-style: solid; border-right-color: #DCE2F1; border-top-style: solid; background-color: #DCE2F1;"
 				align="left">余0</td>
-		<td colspan="10">${cm.crossReds1 }</td>
+		<td colspan="10">${cm.crossReds1ToSpan }</td>
 		</tr>
 			<tr>
 		<td
 				style="width: 22%; border-right-style: solid; border-bottom-color: #DCE2F1; border-left-style: solid; border-left-color: #DCE2F1; border-top-color: #DCE2F1; border-bottom-style: solid; border-right-color: #DCE2F1; border-top-style: solid; background-color: #DCE2F1;"
 				align="left">余1</td>
-		<td colspan="10">${cm.crossReds2 }</td>
+		<td colspan="10">${cm.crossReds2ToSpan }</td>
 		</tr>
 			<tr>
 		<td
 				style="width: 22%; border-right-style: solid; border-bottom-color: #DCE2F1; border-left-style: solid; border-left-color: #DCE2F1; border-top-color: #DCE2F1; border-bottom-style: solid; border-right-color: #DCE2F1; border-top-style: solid; background-color: #DCE2F1;"
 				align="left">余2</td>
-		<td colspan="10">${cm.crossReds3 }</td>
+		<td colspan="10">${cm.crossReds3ToSpan }</td>
 		</tr>
 					<tr>
 		<td
 				style="width: 22%; border-right-style: solid; border-bottom-color: #DCE2F1; border-left-style: solid; border-left-color: #DCE2F1; border-top-color: #DCE2F1; border-bottom-style: solid; border-right-color: #DCE2F1; border-top-style: solid; background-color: #DCE2F1;"
 				align="left">余3</td>
-		<td colspan="10">${cm.crossReds4 }</td>
+		<td colspan="10">${cm.crossReds4ToSpan }</td>
 		</tr>
 		</c:if>
 	</c:forEach>
@@ -553,32 +553,46 @@
 		<td
 				style="width: 22%; border-right-style: solid; border-bottom-color: #DCE2F1; border-left-style: solid; border-left-color: #DCE2F1; border-top-color: #DCE2F1; border-bottom-style: solid; border-right-color: #DCE2F1; border-top-style: solid; background-color: #DCE2F1;"
 				align="left">余0</td>
-		<td colspan="11">${cm.crossReds1 }</td>
+		<td colspan="11">${cm.crossReds1ToSpan }</td>
 		</tr>
 			<tr>
 		<td
 				style="width: 22%; border-right-style: solid; border-bottom-color: #DCE2F1; border-left-style: solid; border-left-color: #DCE2F1; border-top-color: #DCE2F1; border-bottom-style: solid; border-right-color: #DCE2F1; border-top-style: solid; background-color: #DCE2F1;"
 				align="left">余1</td>
-		<td colspan="11">${cm.crossReds2 }</td>
+		<td colspan="11">${cm.crossReds2ToSpan }</td>
 		</tr>
 			<tr>
 		<td
 				style="width: 22%; border-right-style: solid; border-bottom-color: #DCE2F1; border-left-style: solid; border-left-color: #DCE2F1; border-top-color: #DCE2F1; border-bottom-style: solid; border-right-color: #DCE2F1; border-top-style: solid; background-color: #DCE2F1;"
 				align="left">余2</td>
-		<td colspan="11">${cm.crossReds3 }</td>
+		<td colspan="11">${cm.crossReds3ToSpan }</td>
 		</tr>
 					<tr>
 		<td
 				style="width: 22%; border-right-style: solid; border-bottom-color: #DCE2F1; border-left-style: solid; border-left-color: #DCE2F1; border-top-color: #DCE2F1; border-bottom-style: solid; border-right-color: #DCE2F1; border-top-style: solid; background-color: #DCE2F1;"
 				align="left">余3</td>
-		<td colspan="11">${cm.crossReds4 }</td>
+		<td colspan="11">${cm.crossReds4ToSpan }</td>
 		</tr>
 				<tr>
 		<td
 				style="width: 22%; border-right-style: solid; border-bottom-color: #DCE2F1; border-left-style: solid; border-left-color: #DCE2F1; border-top-color: #DCE2F1; border-bottom-style: solid; border-right-color: #DCE2F1; border-top-style: solid; background-color: #DCE2F1;"
 				align="left">余4</td>
-		<td colspan="11">${cm.crossReds5 }</td>
+		<td colspan="11">${cm.crossReds5ToSpan }</td>
 		</tr>
 		</c:if>
 	</c:forEach>
+
 </table>
+
+	<script>
+		$(document).ready(function() {
+				var selector = $("span");
+				selector.on("click", function() {
+					if ($(this).css("color") == 'rgb(255, 0, 0)')
+						$(this).removeAttr("style");
+					else
+						$(this).css("color", "red");
+				});
+
+		});
+	</script>
